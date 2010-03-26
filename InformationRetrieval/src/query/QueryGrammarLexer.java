@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g 2010-03-26 13:22:48
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g 2010-03-26 15:20:13
 
 package query;
 
@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class QueryGrammarLexer extends Lexer {
-    public static final int WORD=7;
+    public static final int WORD=6;
     public static final int WS=9;
-    public static final int NEWLINE=4;
+    public static final int NEWLINE=8;
     public static final int T__11=11;
+    public static final int OR=5;
     public static final int T__10=10;
-    public static final int OR=6;
-    public static final int NOT=8;
-    public static final int AND=5;
+    public static final int NOT=7;
+    public static final int AND=4;
     public static final int EOF=-1;
 
     // delegates
@@ -77,8 +77,8 @@ public class QueryGrammarLexer extends Lexer {
         try {
             int _type = AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:31:5: ( 'and' )
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:31:7: 'and'
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:33:5: ( 'and' )
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:33:7: 'and'
             {
             match("and"); 
 
@@ -98,8 +98,8 @@ public class QueryGrammarLexer extends Lexer {
         try {
             int _type = OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:32:4: ( 'or' )
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:32:6: 'or'
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:34:4: ( 'or' )
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:34:6: 'or'
             {
             match("or"); 
 
@@ -119,8 +119,8 @@ public class QueryGrammarLexer extends Lexer {
         try {
             int _type = NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:33:5: ( 'not' )
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:33:7: 'not'
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:35:5: ( 'not' )
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:35:7: 'not'
             {
             match("not"); 
 
@@ -140,7 +140,7 @@ public class QueryGrammarLexer extends Lexer {
         try {
             int _type = WORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:34:6: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ | ( '\"' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ '\"' ) )
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:36:6: ( ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ | ( '\"' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ '\"' ) )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -158,9 +158,9 @@ public class QueryGrammarLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:34:8: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:36:8: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+
                     {
-                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:34:8: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:36:8: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+
                     int cnt1=0;
                     loop1:
                     do {
@@ -202,13 +202,13 @@ public class QueryGrammarLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:34:40: ( '\"' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ '\"' )
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:36:40: ( '\"' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ '\"' )
                     {
-                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:34:40: ( '\"' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ '\"' )
-                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:34:41: '\"' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ '\"'
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:36:40: ( '\"' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ '\"' )
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:36:41: '\"' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ '\"'
                     {
                     match('\"'); 
-                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:34:44: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:36:44: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+
                     int cnt2=0;
                     loop2:
                     do {
@@ -268,10 +268,10 @@ public class QueryGrammarLexer extends Lexer {
         try {
             int _type = NEWLINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:35:8: ( ( '\\r' )? '\\n' )
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:35:9: ( '\\r' )? '\\n'
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:37:8: ( ( '\\r' )? '\\n' )
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:37:9: ( '\\r' )? '\\n'
             {
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:35:9: ( '\\r' )?
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:37:9: ( '\\r' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -280,7 +280,7 @@ public class QueryGrammarLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:35:9: '\\r'
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:37:9: '\\r'
                     {
                     match('\r'); 
 
@@ -306,10 +306,10 @@ public class QueryGrammarLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:36:5: ( ( ' ' | '\\t' )+ )
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:36:9: ( ' ' | '\\t' )+
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:38:5: ( ( ' ' | '\\t' )+ )
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:38:9: ( ' ' | '\\t' )+
             {
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:36:9: ( ' ' | '\\t' )+
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:38:9: ( ' ' | '\\t' )+
             int cnt5=0;
             loop5:
             do {
