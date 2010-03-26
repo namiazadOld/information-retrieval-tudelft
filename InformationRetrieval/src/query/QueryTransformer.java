@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g 2010-03-26 16:37:12
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g 2010-03-26 16:41:53
 
 package query;
 
@@ -100,7 +100,7 @@ public class QueryTransformer extends TreeParser {
 
 
     // $ANTLR start "boolean_expr"
-    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:31:1: boolean_expr returns [String query] : ( ^( AND a= boolean_expr b= boolean_expr ) | ^( OR a= boolean_expr b= boolean_expr ) | ^( NOT a= boolean_expr ) | WORD );
+    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:17:1: boolean_expr returns [String query] : ( ^( AND a= boolean_expr b= boolean_expr ) | ^( OR a= boolean_expr b= boolean_expr ) | ^( NOT a= boolean_expr ) | WORD );
     public final String boolean_expr() throws RecognitionException {
         String query = null;
 
@@ -111,7 +111,7 @@ public class QueryTransformer extends TreeParser {
 
 
         try {
-            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:32:9: ( ^( AND a= boolean_expr b= boolean_expr ) | ^( OR a= boolean_expr b= boolean_expr ) | ^( NOT a= boolean_expr ) | WORD )
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:18:9: ( ^( AND a= boolean_expr b= boolean_expr ) | ^( OR a= boolean_expr b= boolean_expr ) | ^( NOT a= boolean_expr ) | WORD )
             int alt2=4;
             switch ( input.LA(1) ) {
             case AND:
@@ -143,17 +143,17 @@ public class QueryTransformer extends TreeParser {
 
             switch (alt2) {
                 case 1 :
-                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:32:11: ^( AND a= boolean_expr b= boolean_expr )
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:18:11: ^( AND a= boolean_expr b= boolean_expr )
                     {
-                    match(input,AND,FOLLOW_AND_in_boolean_expr89); 
+                    match(input,AND,FOLLOW_AND_in_boolean_expr87); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_boolean_expr_in_boolean_expr93);
+                    pushFollow(FOLLOW_boolean_expr_in_boolean_expr91);
                     a=boolean_expr();
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_boolean_expr_in_boolean_expr97);
+                    pushFollow(FOLLOW_boolean_expr_in_boolean_expr95);
                     b=boolean_expr();
 
                     state._fsp--;
@@ -165,17 +165,17 @@ public class QueryTransformer extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:33:4: ^( OR a= boolean_expr b= boolean_expr )
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:19:4: ^( OR a= boolean_expr b= boolean_expr )
                     {
-                    match(input,OR,FOLLOW_OR_in_boolean_expr107); 
+                    match(input,OR,FOLLOW_OR_in_boolean_expr105); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_boolean_expr_in_boolean_expr111);
+                    pushFollow(FOLLOW_boolean_expr_in_boolean_expr109);
                     a=boolean_expr();
 
                     state._fsp--;
 
-                    pushFollow(FOLLOW_boolean_expr_in_boolean_expr115);
+                    pushFollow(FOLLOW_boolean_expr_in_boolean_expr113);
                     b=boolean_expr();
 
                     state._fsp--;
@@ -187,12 +187,12 @@ public class QueryTransformer extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:34:4: ^( NOT a= boolean_expr )
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:20:4: ^( NOT a= boolean_expr )
                     {
-                    match(input,NOT,FOLLOW_NOT_in_boolean_expr124); 
+                    match(input,NOT,FOLLOW_NOT_in_boolean_expr122); 
 
                     match(input, Token.DOWN, null); 
-                    pushFollow(FOLLOW_boolean_expr_in_boolean_expr128);
+                    pushFollow(FOLLOW_boolean_expr_in_boolean_expr126);
                     a=boolean_expr();
 
                     state._fsp--;
@@ -204,10 +204,10 @@ public class QueryTransformer extends TreeParser {
                     }
                     break;
                 case 4 :
-                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:35:4: WORD
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:21:4: WORD
                     {
-                    WORD1=(CommonTree)match(input,WORD,FOLLOW_WORD_in_boolean_expr138); 
-                     query = (WORD1!=null?WORD1.getText():null); 
+                    WORD1=(CommonTree)match(input,WORD,FOLLOW_WORD_in_boolean_expr136); 
+                     query = (WORD1!=null?WORD1.getText():null) + "$"; 
 
                     }
                     break;
@@ -230,14 +230,14 @@ public class QueryTransformer extends TreeParser {
  
 
     public static final BitSet FOLLOW_boolean_expr_in_query45 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_AND_in_boolean_expr89 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_boolean_expr_in_boolean_expr93 = new BitSet(new long[]{0x00000000000000F0L});
-    public static final BitSet FOLLOW_boolean_expr_in_boolean_expr97 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_OR_in_boolean_expr107 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_boolean_expr_in_boolean_expr111 = new BitSet(new long[]{0x00000000000000F0L});
-    public static final BitSet FOLLOW_boolean_expr_in_boolean_expr115 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_NOT_in_boolean_expr124 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_boolean_expr_in_boolean_expr128 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_WORD_in_boolean_expr138 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_AND_in_boolean_expr87 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_boolean_expr_in_boolean_expr91 = new BitSet(new long[]{0x00000000000000F0L});
+    public static final BitSet FOLLOW_boolean_expr_in_boolean_expr95 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_OR_in_boolean_expr105 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_boolean_expr_in_boolean_expr109 = new BitSet(new long[]{0x00000000000000F0L});
+    public static final BitSet FOLLOW_boolean_expr_in_boolean_expr113 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_NOT_in_boolean_expr122 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_boolean_expr_in_boolean_expr126 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_WORD_in_boolean_expr136 = new BitSet(new long[]{0x0000000000000002L});
 
 }
