@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g 2010-03-26 15:20:13
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g 2010-03-26 15:56:25
 
 package query;
 
@@ -8,12 +8,10 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.antlr.runtime.debug.*;
-import java.io.IOException;
 
 import org.antlr.runtime.tree.*;
 
-public class QueryGrammarParser extends DebugParser {
+public class QueryGrammarParser extends Parser {
     public static final String[] tokenNames = new String[] {
         "<invalid>", "<EOR>", "<DOWN>", "<UP>", "AND", "OR", "WORD", "NOT", "NEWLINE", "WS", "'('", "')'"
     };
@@ -30,55 +28,23 @@ public class QueryGrammarParser extends DebugParser {
     // delegates
     // delegators
 
-    public static final String[] ruleNames = new String[] {
-        "invalidRule", "or_expr", "boolean_expr", "query", "atom"
-    };
-     
-        public int ruleLevel = 0;
-        public int getRuleLevel() { return ruleLevel; }
-        public void incRuleLevel() { ruleLevel++; }
-        public void decRuleLevel() { ruleLevel--; }
+
         public QueryGrammarParser(TokenStream input) {
-            this(input, DebugEventSocketProxy.DEFAULT_DEBUGGER_PORT, new RecognizerSharedState());
+            this(input, new RecognizerSharedState());
         }
-        public QueryGrammarParser(TokenStream input, int port, RecognizerSharedState state) {
+        public QueryGrammarParser(TokenStream input, RecognizerSharedState state) {
             super(input, state);
-            DebugEventSocketProxy proxy =
-                new DebugEventSocketProxy(this,port,adaptor);
-            setDebugListener(proxy);
-            setTokenStream(new DebugTokenStream(input,proxy));
-            try {
-                proxy.handshake();
-            }
-            catch (IOException ioe) {
-                reportError(ioe);
-            }
-            TreeAdaptor adap = new CommonTreeAdaptor();
-            setTreeAdaptor(adap);
-            proxy.setTreeAdaptor(adap);
+             
         }
-    public QueryGrammarParser(TokenStream input, DebugEventListener dbg) {
-        super(input, dbg);
+        
+    protected TreeAdaptor adaptor = new CommonTreeAdaptor();
 
-         
-        TreeAdaptor adap = new CommonTreeAdaptor();
-        setTreeAdaptor(adap);
-
-    }
-    protected boolean evalPredicate(boolean result, String predicate) {
-        dbg.semanticPredicate(result, predicate);
-        return result;
-    }
-
-    protected DebugTreeAdaptor adaptor;
     public void setTreeAdaptor(TreeAdaptor adaptor) {
-        this.adaptor = new DebugTreeAdaptor(dbg,adaptor);
-
+        this.adaptor = adaptor;
     }
     public TreeAdaptor getTreeAdaptor() {
         return adaptor;
     }
-
 
     public String[] getTokenNames() { return QueryGrammarParser.tokenNames; }
     public String getGrammarFileName() { return "D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g"; }
@@ -101,16 +67,9 @@ public class QueryGrammarParser extends DebugParser {
 
 
 
-        try { dbg.enterRule(getGrammarFileName(), "query");
-        if ( getRuleLevel()==0 ) {dbg.commence();}
-        incRuleLevel();
-        dbg.location(16, 1);
-
         try {
             // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:16:6: ( boolean_expr | )
             int alt1=2;
-            try { dbg.enterDecision(1);
-
             int LA1_0 = input.LA(1);
 
             if ( ((LA1_0>=WORD && LA1_0<=NOT)||LA1_0==10) ) {
@@ -123,20 +82,14 @@ public class QueryGrammarParser extends DebugParser {
                 NoViableAltException nvae =
                     new NoViableAltException("", 1, 0, input);
 
-                dbg.recognitionException(nvae);
                 throw nvae;
             }
-            } finally {dbg.exitDecision(1);}
-
             switch (alt1) {
                 case 1 :
-                    dbg.enterAlt(1);
-
                     // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:16:9: boolean_expr
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    dbg.location(16,9);
                     pushFollow(FOLLOW_boolean_expr_in_query49);
                     boolean_expr1=boolean_expr();
 
@@ -147,8 +100,6 @@ public class QueryGrammarParser extends DebugParser {
                     }
                     break;
                 case 2 :
-                    dbg.enterAlt(2);
-
                     // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:18:6: 
                     {
                     root_0 = (CommonTree)adaptor.nil();
@@ -171,15 +122,6 @@ public class QueryGrammarParser extends DebugParser {
         }
         finally {
         }
-        dbg.location(18, 6);
-
-        }
-        finally {
-            dbg.exitRule(getGrammarFileName(), "query");
-            decRuleLevel();
-            if ( getRuleLevel()==0 ) {dbg.terminate();}
-        }
-
         return retval;
     }
     // $ANTLR end "query"
@@ -205,35 +147,22 @@ public class QueryGrammarParser extends DebugParser {
 
         CommonTree AND3_tree=null;
 
-        try { dbg.enterRule(getGrammarFileName(), "boolean_expr");
-        if ( getRuleLevel()==0 ) {dbg.commence();}
-        incRuleLevel();
-        dbg.location(20, 1);
-
         try {
             // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:20:13: ( or_expr ( AND or_expr )* )
-            dbg.enterAlt(1);
-
             // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:20:15: or_expr ( AND or_expr )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            dbg.location(20,15);
             pushFollow(FOLLOW_or_expr_in_boolean_expr70);
             or_expr2=or_expr();
 
             state._fsp--;
 
             adaptor.addChild(root_0, or_expr2.getTree());
-            dbg.location(20,23);
             // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:20:23: ( AND or_expr )*
-            try { dbg.enterSubRule(2);
-
             loop2:
             do {
                 int alt2=2;
-                try { dbg.enterDecision(2);
-
                 int LA2_0 = input.LA(1);
 
                 if ( (LA2_0==AND) ) {
@@ -241,20 +170,14 @@ public class QueryGrammarParser extends DebugParser {
                 }
 
 
-                } finally {dbg.exitDecision(2);}
-
                 switch (alt2) {
             	case 1 :
-            	    dbg.enterAlt(1);
-
             	    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:20:24: AND or_expr
             	    {
-            	    dbg.location(20,27);
             	    AND3=(Token)match(input,AND,FOLLOW_AND_in_boolean_expr73); 
             	    AND3_tree = (CommonTree)adaptor.create(AND3);
             	    root_0 = (CommonTree)adaptor.becomeRoot(AND3_tree, root_0);
 
-            	    dbg.location(20,29);
             	    pushFollow(FOLLOW_or_expr_in_boolean_expr76);
             	    or_expr4=or_expr();
 
@@ -269,7 +192,6 @@ public class QueryGrammarParser extends DebugParser {
             	    break loop2;
                 }
             } while (true);
-            } finally {dbg.exitSubRule(2);}
 
 
             }
@@ -288,15 +210,6 @@ public class QueryGrammarParser extends DebugParser {
         }
         finally {
         }
-        dbg.location(21, 2);
-
-        }
-        finally {
-            dbg.exitRule(getGrammarFileName(), "boolean_expr");
-            decRuleLevel();
-            if ( getRuleLevel()==0 ) {dbg.terminate();}
-        }
-
         return retval;
     }
     // $ANTLR end "boolean_expr"
@@ -322,35 +235,22 @@ public class QueryGrammarParser extends DebugParser {
 
         CommonTree OR6_tree=null;
 
-        try { dbg.enterRule(getGrammarFileName(), "or_expr");
-        if ( getRuleLevel()==0 ) {dbg.commence();}
-        incRuleLevel();
-        dbg.location(23, 1);
-
         try {
             // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:23:9: ( atom ( OR atom )* )
-            dbg.enterAlt(1);
-
             // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:23:11: atom ( OR atom )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
-            dbg.location(23,11);
-            pushFollow(FOLLOW_atom_in_or_expr88);
+            pushFollow(FOLLOW_atom_in_or_expr89);
             atom5=atom();
 
             state._fsp--;
 
             adaptor.addChild(root_0, atom5.getTree());
-            dbg.location(23,16);
             // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:23:16: ( OR atom )*
-            try { dbg.enterSubRule(3);
-
             loop3:
             do {
                 int alt3=2;
-                try { dbg.enterDecision(3);
-
                 int LA3_0 = input.LA(1);
 
                 if ( (LA3_0==OR) ) {
@@ -358,21 +258,15 @@ public class QueryGrammarParser extends DebugParser {
                 }
 
 
-                } finally {dbg.exitDecision(3);}
-
                 switch (alt3) {
             	case 1 :
-            	    dbg.enterAlt(1);
-
             	    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:23:17: OR atom
             	    {
-            	    dbg.location(23,19);
-            	    OR6=(Token)match(input,OR,FOLLOW_OR_in_or_expr91); 
+            	    OR6=(Token)match(input,OR,FOLLOW_OR_in_or_expr92); 
             	    OR6_tree = (CommonTree)adaptor.create(OR6);
             	    root_0 = (CommonTree)adaptor.becomeRoot(OR6_tree, root_0);
 
-            	    dbg.location(23,21);
-            	    pushFollow(FOLLOW_atom_in_or_expr94);
+            	    pushFollow(FOLLOW_atom_in_or_expr95);
             	    atom7=atom();
 
             	    state._fsp--;
@@ -386,7 +280,6 @@ public class QueryGrammarParser extends DebugParser {
             	    break loop3;
                 }
             } while (true);
-            } finally {dbg.exitSubRule(3);}
 
 
             }
@@ -405,15 +298,6 @@ public class QueryGrammarParser extends DebugParser {
         }
         finally {
         }
-        dbg.location(25, 2);
-
-        }
-        finally {
-            dbg.exitRule(getGrammarFileName(), "or_expr");
-            decRuleLevel();
-            if ( getRuleLevel()==0 ) {dbg.terminate();}
-        }
-
         return retval;
     }
     // $ANTLR end "or_expr"
@@ -447,16 +331,9 @@ public class QueryGrammarParser extends DebugParser {
         RewriteRuleTokenStream stream_10=new RewriteRuleTokenStream(adaptor,"token 10");
         RewriteRuleTokenStream stream_11=new RewriteRuleTokenStream(adaptor,"token 11");
         RewriteRuleSubtreeStream stream_boolean_expr=new RewriteRuleSubtreeStream(adaptor,"rule boolean_expr");
-        try { dbg.enterRule(getGrammarFileName(), "atom");
-        if ( getRuleLevel()==0 ) {dbg.commence();}
-        incRuleLevel();
-        dbg.location(28, 1);
-
         try {
             // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:28:5: ( WORD | NOT atom | '(' boolean_expr ')' -> boolean_expr )
             int alt4=3;
-            try { dbg.enterDecision(4);
-
             switch ( input.LA(1) ) {
             case WORD:
                 {
@@ -477,22 +354,16 @@ public class QueryGrammarParser extends DebugParser {
                 NoViableAltException nvae =
                     new NoViableAltException("", 4, 0, input);
 
-                dbg.recognitionException(nvae);
                 throw nvae;
             }
 
-            } finally {dbg.exitDecision(4);}
-
             switch (alt4) {
                 case 1 :
-                    dbg.enterAlt(1);
-
                     // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:28:11: WORD
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    dbg.location(28,11);
-                    WORD8=(Token)match(input,WORD,FOLLOW_WORD_in_atom114); 
+                    WORD8=(Token)match(input,WORD,FOLLOW_WORD_in_atom117); 
                     WORD8_tree = (CommonTree)adaptor.create(WORD8);
                     adaptor.addChild(root_0, WORD8_tree);
 
@@ -500,19 +371,15 @@ public class QueryGrammarParser extends DebugParser {
                     }
                     break;
                 case 2 :
-                    dbg.enterAlt(2);
-
                     // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:29:4: NOT atom
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
-                    dbg.location(29,7);
-                    NOT9=(Token)match(input,NOT,FOLLOW_NOT_in_atom120); 
+                    NOT9=(Token)match(input,NOT,FOLLOW_NOT_in_atom122); 
                     NOT9_tree = (CommonTree)adaptor.create(NOT9);
                     root_0 = (CommonTree)adaptor.becomeRoot(NOT9_tree, root_0);
 
-                    dbg.location(29,9);
-                    pushFollow(FOLLOW_atom_in_atom123);
+                    pushFollow(FOLLOW_atom_in_atom125);
                     atom10=atom();
 
                     state._fsp--;
@@ -522,23 +389,18 @@ public class QueryGrammarParser extends DebugParser {
                     }
                     break;
                 case 3 :
-                    dbg.enterAlt(3);
-
                     // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryGrammar.g:30:4: '(' boolean_expr ')'
                     {
-                    dbg.location(30,4);
-                    char_literal11=(Token)match(input,10,FOLLOW_10_in_atom131);  
+                    char_literal11=(Token)match(input,10,FOLLOW_10_in_atom134);  
                     stream_10.add(char_literal11);
 
-                    dbg.location(30,8);
-                    pushFollow(FOLLOW_boolean_expr_in_atom133);
+                    pushFollow(FOLLOW_boolean_expr_in_atom136);
                     boolean_expr12=boolean_expr();
 
                     state._fsp--;
 
                     stream_boolean_expr.add(boolean_expr12.getTree());
-                    dbg.location(30,21);
-                    char_literal13=(Token)match(input,11,FOLLOW_11_in_atom135);  
+                    char_literal13=(Token)match(input,11,FOLLOW_11_in_atom138);  
                     stream_11.add(char_literal13);
 
 
@@ -554,9 +416,8 @@ public class QueryGrammarParser extends DebugParser {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (CommonTree)adaptor.nil();
-                    // 30:25: -> boolean_expr
+                    // 30:27: -> boolean_expr
                     {
-                        dbg.location(30,28);
                         adaptor.addChild(root_0, stream_boolean_expr.nextTree());
 
                     }
@@ -580,15 +441,6 @@ public class QueryGrammarParser extends DebugParser {
         }
         finally {
         }
-        dbg.location(31, 2);
-
-        }
-        finally {
-            dbg.exitRule(getGrammarFileName(), "atom");
-            decRuleLevel();
-            if ( getRuleLevel()==0 ) {dbg.terminate();}
-        }
-
         return retval;
     }
     // $ANTLR end "atom"
@@ -602,14 +454,14 @@ public class QueryGrammarParser extends DebugParser {
     public static final BitSet FOLLOW_or_expr_in_boolean_expr70 = new BitSet(new long[]{0x0000000000000012L});
     public static final BitSet FOLLOW_AND_in_boolean_expr73 = new BitSet(new long[]{0x00000000000004C0L});
     public static final BitSet FOLLOW_or_expr_in_boolean_expr76 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_atom_in_or_expr88 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_OR_in_or_expr91 = new BitSet(new long[]{0x00000000000004C0L});
-    public static final BitSet FOLLOW_atom_in_or_expr94 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_WORD_in_atom114 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOT_in_atom120 = new BitSet(new long[]{0x00000000000004C0L});
-    public static final BitSet FOLLOW_atom_in_atom123 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_10_in_atom131 = new BitSet(new long[]{0x00000000000004C0L});
-    public static final BitSet FOLLOW_boolean_expr_in_atom133 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_11_in_atom135 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_atom_in_or_expr89 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_OR_in_or_expr92 = new BitSet(new long[]{0x00000000000004C0L});
+    public static final BitSet FOLLOW_atom_in_or_expr95 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_WORD_in_atom117 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOT_in_atom122 = new BitSet(new long[]{0x00000000000004C0L});
+    public static final BitSet FOLLOW_atom_in_atom125 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_10_in_atom134 = new BitSet(new long[]{0x00000000000004C0L});
+    public static final BitSet FOLLOW_boolean_expr_in_atom136 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_11_in_atom138 = new BitSet(new long[]{0x0000000000000002L});
 
 }
