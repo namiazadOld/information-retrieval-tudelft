@@ -72,7 +72,7 @@ public class LuceneIndexExample
     
 	public static void main(String args[]) throws Exception
     {
-        String text = "This is the text to index with Lucene:" +  "" 
+        String text = "This is the text to index with Lucene:" +  " " 
         		+ "ot. The three pints all rodents swooping towards one of Betelgeuse trading scouts? Ford gave people of flying saucers, - came to end. As soon time quietness he as a shrug. - Keep the later and accompanied by a teaser. - said Majikthise, that had wanted axes. He said, what are Philosophers. - My name, - Charming man, and horror of looking so we known large friendly condescension, - said Arthur. - O Deep Thought, - Oh yes, a new voice, right? - No, the are people to the qualities" 
         		+ "Welcome to think about shadowy spherical shapes seemed to launch a moment, relax and the answer for sound of the Seventh uuuurgh splayed that that it says, - Nothing. - You mean was too at him. He twisted and has been great guys, - asked for the cabin, other direction a moment that most to the crab of blinding telling people didn't have speculated that lay a dog whistle. The reason finger on. - they turned her and been at something coms"
         		+ "figurehead - raged Ford. - Very deep, - And and thanks for a robot dead, and hurried back part of all the Betelgeuse trading scouts. Ford frowned. The mere a room their excitement. It is not her cabin. - You know, - protested Ford. - O Computer... - he noticed that any Earthman. - that related the floating soggily on down weather and then the old man before original version were reflected a system and horror he would just once faces down picture of a young Zaphod -"
