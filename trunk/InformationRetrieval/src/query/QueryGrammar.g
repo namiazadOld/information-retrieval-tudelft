@@ -13,13 +13,15 @@ package query;
 package query;
 }
 
-query:  boolean_expr NEWLINE? {System.out.println($boolean_expr.tree.toStringTree());} 
+query:  boolean_expr
+     | 
      ;
 
 boolean_expr:	or_expr (AND^ or_expr)*
 	;
 
 or_expr :	atom (OR^ atom)*
+	
 	;
 	
 	
