@@ -17,17 +17,17 @@ query:  boolean_expr
      | 
      ;
 
-boolean_expr:	or_expr (AND^ or_expr)*
+boolean_expr:	or_expr (AND^ or_expr)* //	-> ^(AND or_expr+)
 	;
 
-or_expr :	atom (OR^ atom)*
+or_expr :	atom (OR^ atom)* 	//-> ^(OR atom+)
 	
 	;
 	
 	
-atom:     WORD	
-	| NOT^ atom			
-	| '(' boolean_expr ')' -> boolean_expr
+atom:     WORD
+	| NOT^ atom 			//-> ^(NOT atom)			
+	| '(' boolean_expr ')' 		-> boolean_expr 
 	;
 
 AND : 'and';

@@ -8,6 +8,7 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
+import org.antlr.runtime.tree.CommonTreeNodeStream;
 
 public class Query {
 	private CommonTree tree;
@@ -30,8 +31,10 @@ public class Query {
         tree = (CommonTree)r.getTree();
 	}
 	
-	public String getQueryStr() {
-		return null;
+	public String getQueryStr() throws RecognitionException {
+		CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
+        QueryTransformer walker = new QueryTransformer(nodes);
+        return walker.query();
 		
 	}
 	
@@ -41,12 +44,9 @@ public class Query {
 	
 	public static void main(String[] args) throws IOException, RecognitionException {
 		// trim the input, insert and instead of spaces, lowercase
-		Query q = new Query("peter and kamil and");
-//		
-//        CommonTreeNodeStream nodes = new CommonTreeNodeStream(t);
+		Query q = new Query("peter and kamil");
+		
 		q.printAST();
         System.out.println(q.getQueryStr());
-//        Eval walker = new Eval(nodes);
-//        walker.prog();
 	}
 }
