@@ -17,7 +17,7 @@ query returns [String query]
 boolean_expr returns [String query]
         : ^(AND a=boolean_expr b=boolean_expr) 	{ $query = a + " AND " + b; }
 	| ^(OR a=boolean_expr b=boolean_expr)	{ $query = a + " OR " + b; }
-	| ^(NOT a=boolean_expr) 		{ $query = "( NOT " + a + ")"; }
-	| WORD 					{ $query = $WORD.text; }
+	| ^(NOT a=boolean_expr) 		{ $query = "( NOT " + a + " )"; }
+	| WORD 					{ $query = $WORD.text + "$"; }
 	;
 
