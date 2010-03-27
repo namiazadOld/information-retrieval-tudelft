@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g 2010-03-26 16:41:53
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g 2010-03-27 21:00:33
 
 package query;
 
@@ -199,7 +199,7 @@ public class QueryTransformer extends TreeParser {
 
 
                     match(input, Token.UP, null); 
-                     query = "( NOT " + a + ")"; 
+                     query = "( NOT " + a + " )"; 
 
                     }
                     break;
@@ -207,7 +207,7 @@ public class QueryTransformer extends TreeParser {
                     // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryTransformer.g:21:4: WORD
                     {
                     WORD1=(CommonTree)match(input,WORD,FOLLOW_WORD_in_boolean_expr136); 
-                     query = (WORD1!=null?WORD1.getText():null) + "$"; 
+                     query = Query.translateToPostfixWildcard((WORD1!=null?WORD1.getText():null)); 
 
                     }
                     break;
