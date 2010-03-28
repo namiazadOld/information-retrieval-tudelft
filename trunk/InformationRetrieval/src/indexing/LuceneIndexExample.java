@@ -20,6 +20,7 @@ import org.apache.lucene.store.SimpleFSDirectory;
  * index called "index-1" in a temporary directory every
  * time it is invoked and adds a single document with a
  * single field to it.
+ * 
  */
 public class LuceneIndexExample
 {
