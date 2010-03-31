@@ -15,12 +15,7 @@ import org.apache.lucene.store.SimpleFSDirectory;
 
 
 /**
- * LuceneIndexExample class provides a simple
- * example of indexing with Lucene.  It creates a fresh
- * index called "index-1" in a temporary directory every
- * time it is invoked and adds a single document with a
- * single field to it.
- * 
+ * LuceneIndexExample
  */
 public class LuceneIndexExample
 {
