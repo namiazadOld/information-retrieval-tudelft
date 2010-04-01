@@ -3,11 +3,14 @@ package src.indexing;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import org.w3c.dom.*;
 
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class SGMToTXTConverter {
 
