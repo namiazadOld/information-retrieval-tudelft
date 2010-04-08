@@ -1,5 +1,5 @@
 grammar QueryGrammar;
-
+ 
 options {
 output=AST;
 ASTLabelType=CommonTree; // type of $stat.tree ref etc...
