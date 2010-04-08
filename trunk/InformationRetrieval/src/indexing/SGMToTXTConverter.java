@@ -1,4 +1,4 @@
-package src.indexing;
+package indexing;
 
 import java.io.BufferedWriter;
 import java.io.File;
