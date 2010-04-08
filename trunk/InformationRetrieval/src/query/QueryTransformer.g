@@ -21,4 +21,3 @@ boolean_expr returns [String query]
 	| WORD 					{ $query = Query.translateToPostfixWildcard($WORD.text); }
 	;
 
- 
