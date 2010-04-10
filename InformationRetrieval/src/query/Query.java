@@ -107,7 +107,7 @@ public class Query {
         }
 
 
-        Query q = new Query("Agriculture and ( Department or beach)", index);
+        Query q = new Query("versus", index);
 
         //q.printAST();
         //System.out.println(q.getQueryStr());
