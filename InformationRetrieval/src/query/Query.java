@@ -11,12 +11,15 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 
+import antlr.TokenStream;
+
 public class Query {
 
     private CommonTree tree;
     public static final boolean DEBUG = true;
 
     public DocumentIndex index;
+    private List<Integer> results;
 
     public static String translateToPostfixWildcard(String text) {
         int pos = -1;
@@ -47,6 +50,21 @@ public class Query {
         }
 
         return text;
+    }
+    
+    public List<Integer> rankResult ()
+    {
+    	try {
+    		if (results == null)
+				getResult();
+		} catch (RecognitionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+	    }
+	
+//		for (Integer i: )
+		return null;
+    	
     }
 
     public Query(String query, DocumentIndex index) throws RecognitionException {
@@ -80,9 +98,15 @@ public class Query {
     // returns document ids
     public List<Integer> getResult() throws RecognitionException {
         CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
+        tree.getText();
+        
         QueryExecuter walker = new QueryExecuter(nodes);
+        String[] KIR = walker.getTokenNames();
+        org.antlr.runtime.TokenStream ts = nodes.getTokenStream();
         QueryExecuter.index = index;
-        return walker.query();
+       
+        results = walker.query();
+        return results;
 
     }
 
@@ -95,6 +119,7 @@ public class Query {
 
         File db = new File("reuters.db");
         DocumentIndex index = null;
+        
         if (!db.exists()) {
             System.out.print("Creating index...");
             index = DocumentIndex.createIndex("reutersTXT/");
@@ -107,10 +132,13 @@ public class Query {
         }
 
 
-        Query q = new Query("versus", index);
+        Query q = new Query("versus and agriculture", index);
 
+        
         //q.printAST();
         //System.out.println(q.getQueryStr());
+        
         System.out.println(q.getResult());
+//        System.out.println(q.rankResult());
     }
 }

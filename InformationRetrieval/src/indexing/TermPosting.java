@@ -21,11 +21,15 @@ public class TermPosting implements Comparable, Serializable {
     public int documentFrequency;
     public TreeMap<Integer, Integer> postingList;
 
+// added by me-----------------------------------------------------------------    
+    public TreeMap<Integer, Float> postingListOfWeights;
+
     public TermPosting(String term) {
         this.term = term;
         this.termFrequencySum = 0;
         this.documentFrequency = 0;
         this.postingList = new TreeMap<Integer, Integer>();
+        this.postingListOfWeights = new TreeMap<Integer, Float>();
     }
 
     /**
