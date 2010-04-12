@@ -49,6 +49,7 @@ public class DocumentIndex implements Serializable {
 
     }
 
+    // returns all document in which term appears
     public List<Integer> getTermPostingList(String term) {
         if (term == null) return Collections.emptyList();
         TermPosting tp = termPostings.get(term);
@@ -59,6 +60,7 @@ public class DocumentIndex implements Serializable {
 
         return result;
     }
+
 
     public void add(File txtFile, int docid) {
         try {
@@ -90,16 +92,43 @@ public class DocumentIndex implements Serializable {
                 if (tp == null) {
                     tp = new TermPosting(term);
                 }
+                
 
                 tp.postingList.put(docid, termFrequency);
                 tp.termFrequencySum += termFrequency;
                 tp.documentFrequency++;
                 termPostings.put(term, tp);
             }
+            
+            this.updateWeights();
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
+    
+// added by me -----------------------
+    public void updateWeights(){
+    	
+    	if(this.termPostings.isEmpty()){
+    		System.out.println("Term postiong Empty");
+    		return;
+    	}
+    	
+    	for (TermPosting tp: termPostings.values()){
+    		
+    		for (Integer i: tp.postingListOfWeights.keySet()){
+    			//tf-idf weights
+        		tp.postingListOfWeights.put(i, ( 1 + Math.log10(tp.postingListOfWeights.get(i)) )
+        				* Math.log10(tp.termFrequencySum/tp.postingListOfWeights.size()) );
+    			
+    		}
+    	}
+    		
+    } 
+//--------------------------------------------------
+    
+
 
     public static DocumentIndex createIndex(String dirWithTxtArticles) {
         // Build index over reutersTXT articles collection
@@ -115,6 +144,8 @@ public class DocumentIndex implements Serializable {
                 index.add(f, docid);
             }
         }
+        
+        
 
         return index;
     }
