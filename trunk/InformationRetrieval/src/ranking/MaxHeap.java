@@ -45,7 +45,7 @@ public class MaxHeap
         // We're going to start out at the last leaf (the one we just appended)
         int curpos=tree.size()-1;
         // While this Integer isn't the root and it is greater than it's parent
-        // Note the use of the Java && short circuit bitwise AND.  If the first
+        // Note the use of the && operator.  If the first
         // expression evaluates as false, the second is not evaluated.  This
         // avoids an ArrayIndexOutOfBoundsException in the event that
         // tree.elementAt(0)==num
