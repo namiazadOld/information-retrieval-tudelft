@@ -14,6 +14,8 @@ import java.util.TreeMap;
  *
  * @author msenesi
  */
+
+
 public class TermPosting implements Comparable, Serializable {
 
     public String term;
@@ -21,7 +23,7 @@ public class TermPosting implements Comparable, Serializable {
     public int documentFrequency;
     public TreeMap<Integer, Integer> postingList;
 
-// added by me-----------------------------------------------------------------    
+// siamak-----------------------------------------------------------------    
     public TreeMap<Integer, Double> postingListOfWeights;
 // -----------------------------------------------------------------    
 
@@ -30,7 +32,7 @@ public class TermPosting implements Comparable, Serializable {
         this.termFrequencySum = 0;
         this.documentFrequency = 0;
         this.postingList = new TreeMap<Integer, Integer>();
-// added by me-----------------------------------------------------------------    
+// siamak-----------------------------------------------------------------    
         this.postingListOfWeights = new TreeMap<Integer, Double>();
 // -----------------------------------------------------------------
     }
@@ -53,10 +55,15 @@ public class TermPosting implements Comparable, Serializable {
         idx1 = 0;
         idx2 = 0;
 
+//        if (l1.get(0) > l2.get(0)) {
+//            List<Integer> tmp = l1;
+//            l1 = l2;
+//            l2 = l1;
+//        }
         if (l1.get(0) > l2.get(0)) {
             List<Integer> tmp = l1;
             l1 = l2;
-            l2 = l1;
+            l2 = tmp;
         }
 
         outer:
@@ -100,10 +107,15 @@ public class TermPosting implements Comparable, Serializable {
         idx1 = 0;
         idx2 = 0;
 
+//        if (l1.get(0) > l2.get(0)) {
+//            List<Integer> tmp = l1;
+//            l1 = l2;
+//            l2 = l1;
+//        }
         if (l1.get(0) > l2.get(0)) {
             List<Integer> tmp = l1;
             l1 = l2;
-            l2 = l1;
+            l2 = tmp;
         }
 
         outer:
@@ -148,13 +160,20 @@ public class TermPosting implements Comparable, Serializable {
     public static List<Integer> notList(List<Integer> l1) {
 
         if (l1 == null || l1.size() <= 0) {
-            return (List<Integer>) DocumentIndex.documentIds;
+// siamak -----------------------------------------------------------------------------------
+            //return (List<Integer>) DocumentIndex.documentIds;
+            List<Integer> l = new ArrayList<Integer>();
+            l.addAll(DocumentIndex.document_IDs_And_Lenghts.keySet());
+            return l;
+// ------------------------------------------------------------------------------
         }
 
         ArrayList<Integer> l = new ArrayList<Integer>();
         Collections.copy(l, l1);
-        l.removeAll(DocumentIndex.documentIds);
-
+// siamak -----------------------------------------------------------------------------------
+        //l.removeAll(DocumentIndex.documentIds);
+        l.removeAll(DocumentIndex.document_IDs_And_Lenghts.keySet());
+// -------------------------------------------------------------------------------
         return l;
     }
 

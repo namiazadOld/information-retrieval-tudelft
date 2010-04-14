@@ -11,6 +11,8 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 
+import ranking.CosineRanker;
+
 import antlr.TokenStream;
 
 public class Query {
@@ -131,14 +133,20 @@ public class Query {
             System.out.println("Done.");
         }
 
-
-        Query q = new Query("versus and agriculture", index);
+        
+        String input = "versus and agriculture";
+        Query q = new Query(input, index);
 
         
         //q.printAST();
         //System.out.println(q.getQueryStr());
-        
-        System.out.println(q.getResult());
-//        System.out.println(q.rankResult());
+
+// siamak ---------------------------------------------------------------------------------
+        List<Integer> r = q.getResult();
+        System.out.println(r);
+        System.out.println(CosineRanker.rankingResults(r, input, index));
+
+        //System.out.println(q.rankResult());
+// ---------------------------------------------------------------------------------
     }
 }
