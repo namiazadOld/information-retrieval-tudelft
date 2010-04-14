@@ -40,6 +40,14 @@ public class TokenAnalyzer {
         scanner = new Scanner(txtFile);
         scanner.useDelimiter(DOCUMENT_DELIMITER);
     }
+
+// siamak ---------------------------------------------------------------------
+    public TokenAnalyzer(String text){
+        // Token analyzer is simple scanner using several characters as delimitter
+        scanner = new Scanner(text);
+        scanner.useDelimiter(DOCUMENT_DELIMITER);
+    }
+// ----------------------------------------------------------------------------
     
     public String getNextToken() {
         String term = null;

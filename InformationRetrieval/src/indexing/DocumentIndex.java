@@ -28,8 +28,14 @@ public class DocumentIndex implements Serializable {
 
     public static final char ENDING_CHAR = '$';
     private TreeMap<String, TermPosting> termPostings = new TreeMap<String, TermPosting>();
+    
+
     //private ArrayList<Document> documents = new ArrayList<Document>();
-    public static TreeSet<Integer> documentIds = new TreeSet<Integer>();
+
+// siamak --------------------------------------------------------------------------
+    //public static TreeSet<Integer> documentIds = new TreeSet<Integer>();
+    public static TreeMap<Integer, Integer> document_IDs_And_Lenghts = new TreeMap<Integer, Integer>();
+// --------------------------------------------------------------------------
 
     public static List<String> getPermutations(String token) {
         if (token == null) {
@@ -63,9 +69,13 @@ public class DocumentIndex implements Serializable {
 
 
     public void add(File txtFile, int docid) {
+// siamak --------------------------------------------------------------------------
+        int numberOfTokens = 0;
+//--------------------------------------------------------------------------
         try {
             // Get terms frequencies within document
             TokenAnalyzer ta = new TokenAnalyzer(txtFile);
+
             String term = null;
             HashMap<String, Integer> terms = new HashMap<String, Integer>();
 
@@ -77,9 +87,15 @@ public class DocumentIndex implements Serializable {
 
                 tf++;
                 terms.put(term, tf);
+                
+                numberOfTokens ++;
             }
 
-            documentIds.add(docid);
+// siamak --------------------------------------------------------------------------
+            //documentIds.add(docid);
+            document_IDs_And_Lenghts.put(docid, numberOfTokens);
+//--------------------------------------------------------------------------
+
 
             // Store information in index
             Iterator it = terms.keySet().iterator();
@@ -99,15 +115,17 @@ public class DocumentIndex implements Serializable {
                 tp.documentFrequency++;
                 termPostings.put(term, tp);
             }
-            
+
+// siamak --------------------------------------------------------------------------
             this.updateWeights();
-            
+// --------------------------------------------------------------------------            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
     }
     
-// added by me -----------------------
+// siamak ------------------------------------------------------------------------
     public void updateWeights(){
     	
     	if(this.termPostings.isEmpty()){
