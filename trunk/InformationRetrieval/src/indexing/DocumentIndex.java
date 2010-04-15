@@ -66,6 +66,13 @@ public class DocumentIndex implements Serializable {
 
         return result;
     }
+    
+    public TermPosting getTermPosting (String term){
+
+    	if (term == null) return null;
+        TermPosting tp = termPostings.get(term);
+        return tp;
+    }
 
 
     public void add(File txtFile, int docid) {
@@ -132,12 +139,12 @@ public class DocumentIndex implements Serializable {
     		System.out.println("Term postiong Empty");
     		return;
     	}
-    	
+    	double d;
     	for (TermPosting tp: termPostings.values()){
     		
     		for (Integer i: tp.postingListOfWeights.keySet()){
     			//tf-idf weights
-        		tp.postingListOfWeights.put(i, ( 1 + Math.log10(tp.postingListOfWeights.get(i)) )
+        		tp.postingListOfWeights.put(i, ( ( (d = tp.postingListOfWeights.get(i)) > 0 )?(1 + Math.log(d)):(0.0) )
         				* Math.log10(tp.termFrequencySum/tp.postingListOfWeights.size()) );
     			
     		}

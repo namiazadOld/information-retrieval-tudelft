@@ -133,7 +133,6 @@ public class Query {
             System.out.println("Done.");
         }
 
-        
         String input = "versus and agriculture";
         Query q = new Query(input, index);
 
@@ -144,7 +143,8 @@ public class Query {
 // siamak ---------------------------------------------------------------------------------
         List<Integer> r = q.getResult();
         System.out.println(r);
-        System.out.println(CosineRanker.rankingResults(r, input, index));
+        int k_top = 5;
+        System.out.println(CosineRanker.rankingResults(r, input, index, k_top));
 
         //System.out.println(q.rankResult());
 // ---------------------------------------------------------------------------------
