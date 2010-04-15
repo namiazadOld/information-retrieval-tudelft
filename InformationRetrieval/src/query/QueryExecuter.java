@@ -209,8 +209,10 @@ public class QueryExecuter extends TreeParser {
 
 
                     match(input, Token.UP, null); 
-                     result = TermPosting.notList(a); 
-
+// siamak (no changes applied) --------------------------------------------------------------------------------------
+                    result = TermPosting.notList(a);
+                    //result = TermPosting.notList(a, index);
+//--------------------------------------------------------------------------
                     }
                     break;
                 case 4 :
