@@ -68,6 +68,9 @@ public class TokenAnalyzer {
             }
         }
 
+        if(stopTable.contains(term))
+        	return null;
+        
         return term;
     }
 }

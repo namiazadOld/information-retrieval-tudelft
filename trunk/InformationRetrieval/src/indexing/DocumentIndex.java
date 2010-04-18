@@ -20,6 +20,10 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import javax.management.RuntimeErrorException;
+
+import antlr.debug.NewLineEvent;
+
 /**
  *
  * @author msenesi
@@ -31,10 +35,20 @@ public class DocumentIndex implements Serializable {
     
 
     //private ArrayList<Document> documents = new ArrayList<Document>();
+    
+    private DocumentIndex()
+    { 	
+    }
+    
+    private static DocumentIndex documentIndex = new DocumentIndex();
+    public static DocumentIndex instance()
+    {
+    	return documentIndex; 
+    }
 
 // siamak --------------------------------------------------------------------------
     //public static TreeSet<Integer> documentIds = new TreeSet<Integer>();
-    public static TreeMap<Integer, Integer> document_IDs_And_Lenghts = new TreeMap<Integer, Integer>();
+    public TreeMap<Integer, Integer> document_IDs_And_Lenghts = new TreeMap<Integer, Integer>();
 // --------------------------------------------------------------------------
 
     public static List<String> getPermutations(String token) {
@@ -123,9 +137,6 @@ public class DocumentIndex implements Serializable {
                 termPostings.put(term, tp);
             }
 
-// siamak --------------------------------------------------------------------------
-            this.updateWeights();
-// --------------------------------------------------------------------------            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -136,16 +147,16 @@ public class DocumentIndex implements Serializable {
     public void updateWeights(){
     	
     	if(this.termPostings.isEmpty()){
-    		System.out.println("Term postiong Empty");
-    		return;
+    		throw new RuntimeException("Term postiong Empty");
     	}
+		System.out.println("updating weights ...");
     	double d;
     	for (TermPosting tp: termPostings.values()){
     		
-    		for (Integer i: tp.postingListOfWeights.keySet()){
-    			//tf-idf weights
-        		tp.postingListOfWeights.put(i, ( ( (d = tp.postingListOfWeights.get(i)) > 0 )?(1 + Math.log(d)):(0.0) )
-        				* Math.log10(tp.termFrequencySum/tp.postingListOfWeights.size()) );
+    		for (Integer i: tp.postingList.keySet()){
+       			//tf-idf weights
+        		tp.postingListOfWeights.put(i, ( ( (d = tp.postingList.get(i)) > 0 )?(1 + Math.log(d)):(0.0) )
+        				* Math.log10(tp.termFrequencySum/tp.postingList.size()) );
     			
     		}
     	}
@@ -155,34 +166,35 @@ public class DocumentIndex implements Serializable {
     
 
 
-    public static DocumentIndex createIndex(String dirWithTxtArticles) {
+    public void createIndex(String dirWithTxtArticles) {
         // Build index over reutersTXT articles collection
         File reutersDir = new File(dirWithTxtArticles);
         File[] docs = reutersDir.listFiles();
 
-        DocumentIndex index = new DocumentIndex();
+//        DocumentIndex index = new DocumentIndex();
 
         for (File f : docs) {
             if (f.isFile() && f.getName().endsWith(".txt")) {
                 String name = f.getName().substring(0, f.getName().indexOf('.'));
                 Integer docid = Integer.parseInt(name);
-                index.add(f, docid);
+                documentIndex.add(f, docid);
             }
         }
-        
-        
+// siamak --------------------------------------------------------------------------
+        documentIndex.updateWeights();
+//--------------------------------------------------------------------------            
 
-        return index;
+//        documentIndex = index;
     }
 
-    public static DocumentIndex load(String fname) throws Exception {
+    public void load(String fname) throws Exception {
         FileInputStream fin = null;
         ObjectInputStream in = null;
         fin = new FileInputStream(fname);
         in = new ObjectInputStream(fin);
-        DocumentIndex index = (DocumentIndex) in.readObject();
+        documentIndex = (DocumentIndex) in.readObject();
         in.close();
-        return index;
+//        return index;
     }
 
     public void save(String fname) throws Exception {

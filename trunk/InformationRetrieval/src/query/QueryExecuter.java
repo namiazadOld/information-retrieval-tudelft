@@ -46,7 +46,7 @@ public class QueryExecuter extends TreeParser {
     public String getGrammarFileName() { return "C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g"; }
 
 
-    public static DocumentIndex index;
+  //  public static DocumentIndex index;
 
 
 
@@ -219,7 +219,7 @@ public class QueryExecuter extends TreeParser {
                     // C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g:31:4: WORD
                     {
                     WORD1=(CommonTree)match(input,WORD,FOLLOW_WORD_in_boolean_expr157); 
-                     result = index.getTermPostingList((WORD1!=null?WORD1.getText():null)); 
+                     result = DocumentIndex.instance().getTermPostingList((WORD1!=null?WORD1.getText():null)); 
 
                     }
                     break;

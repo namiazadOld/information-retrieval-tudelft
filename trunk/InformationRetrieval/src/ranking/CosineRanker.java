@@ -15,44 +15,52 @@ public class CosineRanker {
 	private CosineRanker(){}
 	
 	
-	public static List<Integer> rankingResults (List<Integer> unranked, String inputQuery, DocumentIndex index, int k_top){//, TreeMap<Integer, Integer> docIDsLenghts){
+	public static List<Integer> rankingResults (List<Integer> unranked, String inputQuery, int k_top){//, TreeMap<Integer, Integer> docIDsLenghts){
 		//access to DocumentIndex.document_IDs_And_Lenghts
-		List<Integer> ranked = fullyClone(unranked);
+//		List<Integer> ranked = fullyClone(unranked);
+		List<Integer> ranked = new ArrayList<Integer>();
 		double w_f_and_q = 0.0;
 		Double d;
 		HashMap<Integer, Double> docIDtoScore = new HashMap<Integer, Double>();
 		
 		MaxHeap scores = new MaxHeap();
 		
+
 		for ( String term: takeOutQueryTerms(inputQuery)){
 			
-			w_f_and_q = commonality(term, index);
-			for (Integer i: index.getTermPostingList(term) ){
+			if(term == null || term == "")
+				break;
+			//
+			System.out.println(DocumentIndex.instance().getTermPostingList(term).size() + " - " + DocumentIndex.instance().getTermPosting(term).postingListOfWeights.size());
+			//
+						
+			w_f_and_q = commonality(term);
+			for (Integer i: DocumentIndex.instance().getTermPostingList(term) ){
 				
-				d = index.getTermPosting(term).postingListOfWeights.get(i) * w_f_and_q;
-				if (! docIDtoScore.containsKey(i) )
+				d = DocumentIndex.instance().getTermPosting(term).postingListOfWeights.get(i) * w_f_and_q;
+				if ( ! docIDtoScore.containsKey(i) )
 					docIDtoScore.put(i, d);
 				else
 					docIDtoScore.put(i, d + docIDtoScore.get(i));
 			}
 			
-			index.getTermPosting(term);
+			DocumentIndex.instance().getTermPosting(term);
 		}
 		
 		for(Integer i : docIDtoScore.keySet()){
 			scores.enqueue(new Score_DocID_Combination(i, docIDtoScore.get(i)));
 		}
-		
-		assert k_top <= scores.size();
-		for(int i=0; i < scores.size(); i++ )
-			ranked.add(scores.elementAt(i).docID);
+		int loop = Math.min(k_top, scores.size());
+		assert (k_top <= scores.size());
+		for(int i=0; i < loop; i++ )
+			ranked.add(scores.dequeue().docID);
 		return ranked;
 		
 	}
 	
-	private static double commonality (String term, DocumentIndex index){
+	private static double commonality (String term){
 		
-		return Math.log(DocumentIndex.document_IDs_And_Lenghts.size()/index.getTermPostingList(term).size());
+		return Math.log(DocumentIndex.instance().document_IDs_And_Lenghts.size()/DocumentIndex.instance().getTermPostingList(term).size());
 	}
 	
 	private static List<String> takeOutQueryTerms (String inputQuery){
