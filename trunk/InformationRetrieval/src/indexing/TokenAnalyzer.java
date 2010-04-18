@@ -73,4 +73,9 @@ public class TokenAnalyzer {
         
         return term;
     }
+    
+    public static boolean isStopWord(String term) {
+    	term = term.replaceAll("" + DocumentIndex.ENDING_CHAR, "");
+    	return stopTable.contains(term);
+    }
 }
