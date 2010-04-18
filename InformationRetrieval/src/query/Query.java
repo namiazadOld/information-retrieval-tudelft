@@ -20,7 +20,7 @@ public class Query {
     private CommonTree tree;
     public static final boolean DEBUG = true;
 
-    public DocumentIndex index;
+//    public DocumentIndex index;
     private List<Integer> results;
 
     public static String translateToPostfixWildcard(String text) {
@@ -69,8 +69,8 @@ public class Query {
     	
     }
 
-    public Query(String query, DocumentIndex index) throws RecognitionException {
-        this.index = index;
+    public Query(String query) throws RecognitionException {
+//        this.index = index;
         query = query.trim().toLowerCase();
         query = query.replaceAll("[^a-zA-Z0-9() .\t]", "");
 
@@ -105,7 +105,7 @@ public class Query {
         QueryExecuter walker = new QueryExecuter(nodes);
         String[] KIR = walker.getTokenNames();
         org.antlr.runtime.TokenStream ts = nodes.getTokenStream();
-        QueryExecuter.index = index;
+//        QueryExecuter.index = index;
        
         results = walker.query();
         return results;
@@ -120,21 +120,21 @@ public class Query {
         // trim the input, insert and instead of spaces, lowercase
 
         File db = new File("reuters.db");
-        DocumentIndex index = null;
+//        DocumentIndex index = null;
         
         if (!db.exists()) {
             System.out.print("Creating index...");
-            index = DocumentIndex.createIndex("reutersTXT/");
-            index.save("reuters.db");
+            DocumentIndex.instance().createIndex("reutersTXT/");
+            DocumentIndex.instance().save("reuters.db");
             System.out.println("Done.");
         } else {
             System.out.print("Loading index...");
-            index = DocumentIndex.load("reuters.db");
+            DocumentIndex.instance().load("reuters.db");
             System.out.println("Done.");
         }
 
-        String input = "versus and agriculture";
-        Query q = new Query(input, index);
+        String input = "the";
+        Query q = new Query(input);
 
         
         //q.printAST();
@@ -144,7 +144,7 @@ public class Query {
         List<Integer> r = q.getResult();
         System.out.println(r);
         int k_top = 5;
-        System.out.println(CosineRanker.rankingResults(r, input, index, k_top));
+        System.out.println(CosineRanker.rankingResults(r, input, k_top));
 
         //System.out.println(q.rankResult());
 // ---------------------------------------------------------------------------------

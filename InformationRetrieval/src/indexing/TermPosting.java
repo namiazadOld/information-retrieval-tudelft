@@ -163,7 +163,7 @@ public class TermPosting implements Comparable, Serializable {
 // siamak -----------------------------------------------------------------------------------
             //return (List<Integer>) DocumentIndex.documentIds;
             List<Integer> l = new ArrayList<Integer>();
-            l.addAll(DocumentIndex.document_IDs_And_Lenghts.keySet());
+            l.addAll(DocumentIndex.instance().document_IDs_And_Lenghts.keySet());
             return l;
 // ------------------------------------------------------------------------------
         }
@@ -172,7 +172,7 @@ public class TermPosting implements Comparable, Serializable {
         Collections.copy(l, l1);
 // siamak -----------------------------------------------------------------------------------
         //l.removeAll(DocumentIndex.documentIds);
-        l.removeAll(DocumentIndex.document_IDs_And_Lenghts.keySet());
+        l.removeAll(DocumentIndex.instance().document_IDs_And_Lenghts.keySet());
 // -------------------------------------------------------------------------------
         return l;
     }
