@@ -76,8 +76,8 @@ public class LuceneIndexExample
         		+ "gang! - So? - It's And I stole it a passing out. God what inventing further after their know I decide to the punters' interest. Again came Betelgeuse and make any full title President of the fundamental fabric of any form I put in fact it rather single word yellow and the Question? - Yes, - he amazingly popular are something it later Ford carried round huge screen. Ford continued to I think it's few remaining differences in excess of the the hours to come"
         		;
 
-        File indexDir = new File ("D:/IR/index");
-        File dataDir = new File ("D:/IR/data");
+        File indexDir = new File ("E:TU Delft/Information Retrival/Project/IR");
+        File dataDir = new File ("E:/TU Delft/Information Retrival/Project/IR");
         
         int numIndexed = index(indexDir, dataDir);
         System.out.println("Indexing " + numIndexed + " files took "
