@@ -37,22 +37,23 @@ public static final char[] mapping ={
     }
     if (res.length()== 0) 
     	return null;
-    for (int i= res.length(); i<4 ; i++){
+    for (int i= res.length(); i<4 ; i++)
     	res.append(0);
-    	return res.length.tostring();
+    	return res.toString();
+      
     }
+
     public static void main(String[] args)
     {
-    String[] name ={"Darwin, Ian",
+    String[] name ={
+      "Darwin, Ian",
       "Davidson, Greg",
       "Darwent, William",
-      "Derwin, Daemon"};
-      for (int i=0 ; i< names.length; i++)
+      "Derwin, Daemon"
+      };
+      for (int i=0 ; i< name.length; i++)
       {
-      System.out.println(Soundex.soundex (name[i])+ ' '+ name[i])
+      System.out.println(Soundex.soundex (name[i])+ ' '+ name[i]);
       }
-    }
-    }
-
-
+     }
 }
