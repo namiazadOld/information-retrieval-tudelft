@@ -72,6 +72,10 @@ public class DocumentIndex implements Serializable {
     // returns all document in which term appears
     public List<Integer> getTermPostingList(String term) {
         if (term == null) return Collections.emptyList();
+        if (TokenAnalyzer.isStopWord(term)) {
+        	return TermPosting.STOP_WORD_LIST;
+        }
+        
         TermPosting tp = termPostings.get(term);
         if (tp == null) return Collections.emptyList();
 
