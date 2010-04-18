@@ -155,7 +155,7 @@ public class DocumentIndex implements Serializable {
     		
     		for (Integer i: tp.postingList.keySet()){
        			//tf-idf weights
-        		tp.postingListOfWeights.put(i, ( ( (d = tp.postingList.get(i)) > 0 )?(1 + Math.log(d)):(0.0) )
+        		tp.postingListOfWeights.put(i, ( ( (d = tp.postingList.get(i)) > 0 )?(1 + Math.log10(d)):(0.0) )
         				* Math.log10(tp.termFrequencySum/tp.postingList.size()) );
     			
     		}

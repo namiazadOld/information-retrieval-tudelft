@@ -133,7 +133,7 @@ public class Query {
             System.out.println("Done.");
         }
 
-        String input = "the";
+        String input = "who";
         Query q = new Query(input);
 
         
@@ -144,7 +144,8 @@ public class Query {
         List<Integer> r = q.getResult();
         System.out.println(r);
         int k_top = 5;
-        System.out.println(CosineRanker.rankingResults(r, input, k_top));
+        System.out.println(CosineRanker.rankingResults(input, k_top, false));
+        System.out.println(CosineRanker.rankingResults(input, k_top, true));
 
         //System.out.println(q.rankResult());
 // ---------------------------------------------------------------------------------

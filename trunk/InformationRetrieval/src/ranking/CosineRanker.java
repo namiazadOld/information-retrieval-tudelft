@@ -11,11 +11,22 @@ import java.util.TreeMap;
 
 
 public class CosineRanker {
+	
+	static private double MIN_SPECIALITY = 3;
 
 	private CosineRanker(){}
 	
+	public static List<Integer> rankingResults (String inputQuery, int k_top, boolean highIDF){
+		
+		List <String> queryParsed = takeOutQueryTerms(inputQuery);
+		if (highIDF)
+			getHighIDFQueryTerms(queryParsed);
+		
+			
+		return calculateRankings (queryParsed, k_top);
+	}
 	
-	public static List<Integer> rankingResults (List<Integer> unranked, String inputQuery, int k_top){//, TreeMap<Integer, Integer> docIDsLenghts){
+	private static List<Integer> calculateRankings (List<String> inputQuery, int k_top){//, TreeMap<Integer, Integer> docIDsLenghts){
 		//access to DocumentIndex.document_IDs_And_Lenghts
 //		List<Integer> ranked = fullyClone(unranked);
 		List<Integer> ranked = new ArrayList<Integer>();
@@ -26,7 +37,7 @@ public class CosineRanker {
 		MaxHeap scores = new MaxHeap();
 		
 
-		for ( String term: takeOutQueryTerms(inputQuery)){
+		for ( String term: inputQuery){
 			
 			if(term == null || term == "")
 				break;
@@ -34,7 +45,7 @@ public class CosineRanker {
 			System.out.println(DocumentIndex.instance().getTermPostingList(term).size() + " - " + DocumentIndex.instance().getTermPosting(term).postingListOfWeights.size());
 			//
 						
-			w_f_and_q = commonality(term);
+			w_f_and_q = speciality(term);
 			for (Integer i: DocumentIndex.instance().getTermPostingList(term) ){
 				
 				d = DocumentIndex.instance().getTermPosting(term).postingListOfWeights.get(i) * w_f_and_q;
@@ -58,9 +69,9 @@ public class CosineRanker {
 		
 	}
 	
-	private static double commonality (String term){
+	private static double speciality (String term){
 		
-		return Math.log(DocumentIndex.instance().document_IDs_And_Lenghts.size()/DocumentIndex.instance().getTermPostingList(term).size());
+		return Math.log10(DocumentIndex.instance().document_IDs_And_Lenghts.size()/DocumentIndex.instance().getTermPostingList(term).size());
 	}
 	
 	private static List<String> takeOutQueryTerms (String inputQuery){
@@ -75,6 +86,17 @@ public class CosineRanker {
             	out.add(term);
         }
 		return out;
+	}
+	
+	private static void getHighIDFQueryTerms (List<String> queryTerms){
+		
+		int i = 0;
+		while(i < queryTerms.size()){
+			if (speciality(queryTerms.get(i)) < CosineRanker.MIN_SPECIALITY)
+				queryTerms.remove(i);
+			else
+				i++;
+		}
 	}
 	
 	private static List<Integer> fullyClone (List<Integer> toBeCloned){
