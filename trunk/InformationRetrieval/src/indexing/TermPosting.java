@@ -22,6 +22,9 @@ public class TermPosting implements Comparable, Serializable {
     public int termFrequencySum;
     public int documentFrequency;
     public TreeMap<Integer, Integer> postingList;
+    
+    // stop word list
+    public static List<Integer> STOP_WORD_LIST= new ArrayList<Integer>();
 
 // siamak-----------------------------------------------------------------    
     public TreeMap<Integer, Double> postingListOfWeights;
@@ -48,6 +51,15 @@ public class TermPosting implements Comparable, Serializable {
         if (l1 == null || l2 == null || l1.size() <= 0 || l2.size() <= 0) {
             return Collections.emptyList();
         }
+        
+        if (l1 == STOP_WORD_LIST) {
+        	return l2;
+        }
+        
+        if (l2 == STOP_WORD_LIST) {
+        	return l1;
+        }
+        
 
         ArrayList<Integer> l = new ArrayList<Integer>();
 
@@ -93,12 +105,20 @@ public class TermPosting implements Comparable, Serializable {
     }
 
     public static List<Integer> orLists(List<Integer> l1, List<Integer> l2) {
-
+    	
         if (l1 == null || l1.size() <= 0)
             return l2;
 
         if (l2 == null || l2.size() <= 0)
             return l1;
+        
+        if (l1 == STOP_WORD_LIST) {
+        	return l2;
+        }
+        
+        if (l2 == STOP_WORD_LIST) {
+        	return l1;
+        }
         
 
         ArrayList<Integer> l = new ArrayList<Integer>();
@@ -158,8 +178,13 @@ public class TermPosting implements Comparable, Serializable {
     }
 
     public static List<Integer> notList(List<Integer> l1) {
+    	
+    	if (l1 == STOP_WORD_LIST) {
+        	l1 = null;
+        }
 
-        if (l1 == null || l1.size() <= 0) {
+        if (l1 == null || l1.size() <= 0) {        	
+            
 // siamak -----------------------------------------------------------------------------------
             //return (List<Integer>) DocumentIndex.documentIds;
             List<Integer> l = new ArrayList<Integer>();
