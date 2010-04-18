@@ -14,12 +14,13 @@ public static final char[] mapping ={
     '5','0','1','2','6','2','3','0','1','0','2','0','2'
     };
     // Convert method replace strings with its soundex code
-    public static soundex(String s){
+    public static String soundex(String s){
     //Change to upper case
-    String u = s.UpperCase();
-    StringBuffer res = new StingBuffer ();
+    String u = s.toUpperCase();
+    
+    StringBuffer res = new StringBuffer();
     char c, prev ='?';
-    for (int i=0 ; i< u.length() && res.length()<4 && (c=u.ChartAt(i))!=',';i++ ){
+    for (int i=0 ; i< u.length() && res.length()<4 && ( c = u.charAt(i))!=',';i++ ){
     if(c>'A' && c< 'Z' && c != prev)
     {
     prev =c;
@@ -27,9 +28,11 @@ public static final char[] mapping ={
     if(i==0)
     	res.append(c);
     else
-    	char m = mapping[c-'A'];
-    	if (m!='0')
-    		res.append(m);
+    {
+    	 char m = mapping[c -'A'];
+    	 if (m!='0')
+         res.append(m);
+    }
     }
     }
     if (res.length()== 0) 
