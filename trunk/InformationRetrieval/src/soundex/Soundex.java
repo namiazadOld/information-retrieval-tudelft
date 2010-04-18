@@ -43,7 +43,7 @@ public static final char[] mapping ={
       
     }
 
-    public static void main(String[] args)
+  /*  public static void main(String[] args)
     {
     String[] name ={
       "Darwin, Ian",
@@ -55,5 +55,5 @@ public static final char[] mapping ={
       {
       System.out.println(Soundex.soundex (name[i])+ ' '+ name[i]);
       }
-     }
+     }*/
 }
