@@ -98,6 +98,17 @@ public class Query {
    public void printAST() {
        System.out.println(tree.toStringTree());
    }
+   
+   public static String join (List<String> list, String seperator){
+	   
+	   String result = "";
+	   for(int i = 0; i < list.size() ; i++){
+		   result += list.get(i);
+		   if(i < list.size() - 1)
+			   result += " " + seperator + " ";
+	   }
+	   return result;
+   }
 
    public static void main(String[] args) throws Exception {
        // trim the input, insert and instead of spaces, lowercase
@@ -146,11 +157,22 @@ public class Query {
                    System.out.println("Error while processing the boolean query.");
                }
            } else {
-               System.out.println("High-idf turned off:");
-               System.out.println(CosineRanker.rankingResults(input, K_TOP, false));
-               System.out.println("High-idf turned on:");
-               System.out.println(CosineRanker.rankingResults(input, K_TOP, true));
-
+        	   
+        	   if(input.contains("*")){
+        		   String s = join(takeOutQueryTerms(input), "or");
+                   System.out.println("Entered query is replaced by this boolean query: " + s);
+        		   Query q2 = new Query(s);
+                   List<Integer> r2 = q2.getResult();
+                   System.out.println(r2);
+        	   }
+        	   else{
+        		   List <String> queryParsed = takeOutQueryTerms(input);
+                   System.out.println("High-idf turned off:");
+                   System.out.println(CosineRanker.rankingResults(queryParsed, K_TOP, false));
+                   System.out.println("High-idf turned on:");
+                   System.out.println(CosineRanker.rankingResults(queryParsed, K_TOP, true));
+        	   }
+        	   
            }
        }
 
