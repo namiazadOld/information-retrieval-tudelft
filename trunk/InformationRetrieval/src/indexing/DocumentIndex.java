@@ -142,7 +142,8 @@ public class DocumentIndex implements Serializable {
                 term = (String) it.next();
                 Integer termFrequency = terms.get(term);
 
-                TermPosting tp = termPostings.get(term);
+                String permuterm = PermutermFacilities.translateToPostfixWildcard(term);
+                TermPosting tp = termPostings.get(permuterm);
                 if (tp == null) {
                     tp = new TermPosting(term);
                 }
@@ -159,8 +160,8 @@ public class DocumentIndex implements Serializable {
                 //term = PermutermFacilities.translateToPostfixWildcard(term);
                 
                 //permuterm
-                for ( String permuterm : PermutermFacilities.producePermutermList(term) ) {
-                	termPostings.put(permuterm, tp);
+                for ( String p : PermutermFacilities.producePermutermList(term) ) {
+                	termPostings.put(p, tp);
                 }
             }
 

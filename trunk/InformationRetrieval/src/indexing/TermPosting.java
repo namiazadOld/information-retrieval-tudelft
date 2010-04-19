@@ -52,11 +52,11 @@ public class TermPosting implements Comparable, Serializable {
      */
     public static List<Integer> andLists(List<Integer> l1, List<Integer> l2) {
 
-        if (l1 == null || l2 == null || l1.size() <= 0 || l2.size() <= 0) {
+    	if (l1 == null || l2 == null) {
             return Collections.emptyList();
         }
-        
-        if (l1 == STOP_WORD_LIST) {
+    	
+    	if (l1 == STOP_WORD_LIST) {
         	return l2;
         }
         
@@ -64,7 +64,10 @@ public class TermPosting implements Comparable, Serializable {
         	return l1;
         }
         
-
+        if (l1.size() <= 0 || l2.size() <= 0) {
+            return Collections.emptyList();
+        }
+        
         ArrayList<Integer> l = new ArrayList<Integer>();
 
         int idx1, idx2;
@@ -109,6 +112,13 @@ public class TermPosting implements Comparable, Serializable {
     }
 
     public static List<Integer> orLists(List<Integer> l1, List<Integer> l2) {
+    	if (l1 == STOP_WORD_LIST) {
+        	return l2;
+        }
+        
+        if (l2 == STOP_WORD_LIST) {
+        	return l1;
+        }
     	
         if (l1 == null || l1.size() <= 0)
             return l2;
@@ -116,15 +126,6 @@ public class TermPosting implements Comparable, Serializable {
         if (l2 == null || l2.size() <= 0)
             return l1;
         
-        if (l1 == STOP_WORD_LIST) {
-        	return l2;
-        }
-        
-        if (l2 == STOP_WORD_LIST) {
-        	return l1;
-        }
-        
-
         ArrayList<Integer> l = new ArrayList<Integer>();
 
         int idx1, idx2;
@@ -190,15 +191,11 @@ public class TermPosting implements Comparable, Serializable {
             List<Integer> l = new ArrayList<Integer>();
             l.addAll(DocumentIndex.instance().document_IDs_And_Lenghts.keySet());
             return l;
-// ------------------------------------------------------------------------------
         }
 
         ArrayList<Integer> l = new ArrayList<Integer>();
         l.addAll(DocumentIndex.instance().document_IDs_And_Lenghts.keySet());
-// siamak -----------------------------------------------------------------------------------
-        //l.removeAll(DocumentIndex.documentIds);
         l.removeAll(l1);
-// -------------------------------------------------------------------------------
         return l;
     }
 
