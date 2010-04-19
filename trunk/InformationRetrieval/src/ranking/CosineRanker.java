@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 public class CosineRanker {
 	
-	static private double MIN_SPECIALITY = 3;
+	static private double MIN_SPECIALITY = 1;
 
 	private CosineRanker(){}
 	
@@ -42,7 +42,7 @@ public class CosineRanker {
 			if(term == null || term == "")
 				break;
 			//
-			System.out.println(DocumentIndex.instance().getTermPostingList(term).size() + " - " + DocumentIndex.instance().getTermPosting(term).postingListOfWeights.size());
+//			System.out.println(DocumentIndex.instance().getTermPostingList(term).size() + " - " + DocumentIndex.instance().getTermPosting(term).postingListOfWeights.size());
 			//
 						
 			w_f_and_q = speciality(term);
@@ -71,6 +71,7 @@ public class CosineRanker {
 	
 	private static double speciality (String term){
 		
+		//System.out.println("IDF " + term + ":" + Math.log10(DocumentIndex.instance().document_IDs_And_Lenghts.size()/DocumentIndex.instance().getTermPostingList(term).size()));
 		return Math.log10(DocumentIndex.instance().document_IDs_And_Lenghts.size()/DocumentIndex.instance().getTermPostingList(term).size());
 	}
 	
