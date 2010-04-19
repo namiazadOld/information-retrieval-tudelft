@@ -16,7 +16,7 @@ import indexing.TermPosting;
 }
 
 @members{
-public static DocumentIndex index;
+public static DocumentIndex index = DocumentIndex.instance();
 }
 
 query returns [List<Integer> result]
