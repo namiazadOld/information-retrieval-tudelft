@@ -26,7 +26,7 @@ public class TokenAnalyzer {
         "they", "this", "to", "was", "will"
     };
     private static HashSet stopTable;
-    public static final String DOCUMENT_DELIMITER = "[ |\\\"\\-_,\r\n\t?!;:<>{}\\[\\]=+/%*&()'" + DocumentIndex.ENDING_CHAR + "]+";
+    public static final String DOCUMENT_DELIMITER = "[ |\\\"\\-_,\r\n\t?!;:<>{}\\[\\]=+/%*&()'" + PermutermFacilities.PERMUTERM_SYMBOL + "]+";
     
     static {
         stopTable = new HashSet();
@@ -72,14 +72,15 @@ public class TokenAnalyzer {
         	return null;
         
 // siamak ------------------------------------------------------        
-        return term.contains(String.valueOf(PermutermFacilities.WILDCARD_SYMBOL))
-        			? PermutermFacilities.shiftWildCardToEnd(term)
-        			: term;
+//        return term.contains(String.valueOf(PermutermFacilities.WILDCARD_SYMBOL))
+//        			? PermutermFacilities.shiftWildCardToEnd(term)
+//        			: term;
 // ---------------------------------------------------
+        return term;
     }
     
     public static boolean isStopWord(String term) {
-    	term = term.replaceAll("" + DocumentIndex.ENDING_CHAR, "");
+    	term = term.replaceAll("" + PermutermFacilities.PERMUTERM_SYMBOL, "");
     	return stopTable.contains(term);
     }
 }

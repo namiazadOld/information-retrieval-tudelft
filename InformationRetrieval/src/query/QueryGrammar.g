@@ -18,7 +18,7 @@ protected void mismatch(IntStream input, int ttype, BitSet follow) throws Recogn
    throw new MismatchedTokenException(ttype, input);
 }
 
-public void recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
+public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
    throw e;
 }
 }

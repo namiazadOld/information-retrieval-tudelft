@@ -17,8 +17,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 import javax.management.RuntimeErrorException;
 
@@ -32,7 +34,6 @@ import antlr.debug.NewLineEvent;
  */
 public class DocumentIndex implements Serializable {
 
-    public static final char ENDING_CHAR = '$';
     private TreeMap<String, TermPosting> termPostings = new TreeMap<String, TermPosting>();
     private TreeMap<String, List<TermPosting>> soundexIndex = new TreeMap<String, List<TermPosting>>();
     
@@ -59,23 +60,7 @@ public class DocumentIndex implements Serializable {
     public TreeMap<Integer, Integer> document_IDs_And_Lenghts = new TreeMap<Integer, Integer>();
 // --------------------------------------------------------------------------
 
-    public static List<String> getPermutations(String token) {
-        if (token == null) {
-            return null;
-        }
-
-        token += ENDING_CHAR;
-
-        List<String> result = new ArrayList<String>();
-        result.add(token);
-        for (int i = 1; i < token.length(); i++) {
-            token = token.substring(1, token.length()) + token.charAt(0);
-            result.add(token);
-        }
-
-        return result;
-
-    }
+    
 
     // returns all document in which term appears
     public List<Integer> getTermPostingList(String term) {
@@ -84,20 +69,39 @@ public class DocumentIndex implements Serializable {
         	return TermPosting.STOP_WORD_LIST;
         }
         
-        TermPosting tp = termPostings.get(term);
-        if (tp == null) return Collections.emptyList();
-
-        ArrayList<Integer> result = new ArrayList<Integer>();
-        result.addAll(tp.postingList.keySet());
-
+        term = PermutermFacilities.translateToPostfixWildcard(term);
+    	List<Integer> result = new ArrayList<Integer>();
+        
+    	if (!PermutermFacilities.isPostfixWildcard(term)) {
+    		TermPosting tp = termPostings.get(term);
+    		if (tp == null) return Collections.emptyList();
+    		
+    		result.addAll(tp.postingList.keySet());
+    	} else {
+    		// retreive all the posting lists that match the wildcard
+    		term = PermutermFacilities.removePostfixWildcard(term);
+    		Map.Entry<String, TermPosting> entry = termPostings.ceilingEntry(term);
+    		if (entry == null) return Collections.emptyList();
+    		
+    		result.addAll(entry.getValue().postingList.keySet());
+    		String regex = term.replace("$", "\\$") + ".*";
+    		
+    		while ((entry = termPostings.higherEntry(entry.getKey())) != null && Pattern.matches(regex, entry.getKey()) ) {
+    			List<Integer> result2 = new ArrayList(entry.getValue().postingList.keySet());
+    			result = TermPosting.orLists(result, result2);
+    		}
+    		   		
+    	}
+        
         return result;
     }
  
 // siamak ----------------------------------------------------------------------    
     public TermPosting getTermPosting (String term){
-
+// TODO permuterm
     	if (term == null) return null;
-        TermPosting tp = termPostings.get(term);
+    	term = PermutermFacilities.translateToPostfixWildcard(term);
+    	TermPosting tp = termPostings.get(term);
         return tp;
     }
 // --------------------------------------------------------------------------
@@ -146,19 +150,18 @@ public class DocumentIndex implements Serializable {
                 tp.postingList.put(docid, termFrequency);
                 tp.termFrequencySum += termFrequency;
                 tp.documentFrequency++;
-                termPostings.put(term, tp);
-// siamak ------------------------------------------------------------------------------------
                 
                 //soundex
                 //System.out.println("- " + term + " -");
+                 
                 Soundex.addSoundex(term, tp);
                 
+                //term = PermutermFacilities.translateToPostfixWildcard(term);
+                
                 //permuterm
-                for(String permuterm : PermutermFacilities.producePermutermList(term)){
+                for ( String permuterm : PermutermFacilities.producePermutermList(term) ) {
                 	termPostings.put(permuterm, tp);
                 }
-                
-// --------------------------------------------------------------------
             }
 
         } catch (FileNotFoundException e) {
