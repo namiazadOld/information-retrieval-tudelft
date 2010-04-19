@@ -61,7 +61,7 @@ public class CosineRanker {
 		}
 		
 		for(Integer i : docIDtoScore.keySet()){
-			scores.enqueue(new Score_DocID_Combination(i, docIDtoScore.get(i)));
+			scores.enqueue(new Score_DocID_Combination(i, docIDtoScore.get(i)/DocumentIndex.instance().document_IDs_And_Lenghts.get(i)));
 		}
 		int loop = Math.min(k_top, scores.size());
 		assert (k_top <= scores.size());
