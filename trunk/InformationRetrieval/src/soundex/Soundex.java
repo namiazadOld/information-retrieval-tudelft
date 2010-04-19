@@ -13,6 +13,7 @@ import query.Query;
 public class Soundex {
     private HashMap<String, ArrayList<TermPosting>> soundex;
 
+    public static final int THRESHOLD = 3;
     public Soundex() {
         soundex = new HashMap<String, ArrayList<TermPosting>>();
     }
@@ -92,13 +93,18 @@ public class Soundex {
     	if (similarWords == null || similarWords.size() == 0)
     		return term;
     	
-    	TermPosting max = similarWords.get(0);
+    	TermPosting max = DocumentIndex.instance().getTermPosting(term);
+    	if (max == null)
+    		max = similarWords.get(0);
     	
     	for (TermPosting tp : similarWords)
     		if (tp.termFrequencySum > max.termFrequencySum)
     			max = tp;
     	
-    	return max.term;
+    	TermPosting originalTerm = DocumentIndex.instance().getTermPosting(term);
+    	if (originalTerm == null || max.termFrequencySum >= THRESHOLD * originalTerm.termFrequencySum)
+    		return max.term;
+    	return term;
     }
     
     public static String guessSoundex(String inputQuery)

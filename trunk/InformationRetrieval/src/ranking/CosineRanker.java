@@ -18,14 +18,14 @@ public class CosineRanker {
 
 	private CosineRanker(){}
 	
-	public static List<Integer> rankingResults (String inputQuery, int k_top, boolean highIDF){
+	public static List<Integer> rankingResults (List <String> inputQueryList, int k_top, boolean highIDF){
 		
-		List <String> queryParsed = Query.takeOutQueryTerms(inputQuery);
+//		List <String> queryParsed = Query.takeOutQueryTerms(inputQuery);
 		if (highIDF)
-			getHighIDFQueryTerms(queryParsed);
+			getHighIDFQueryTerms(inputQueryList);
 		
 			
-		return calculateRankings (queryParsed, k_top);
+		return calculateRankings (inputQueryList, k_top);
 	}
 	
 	private static List<Integer> calculateRankings (List<String> inputQuery, int k_top){//, TreeMap<Integer, Integer> docIDsLenghts){
