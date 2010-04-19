@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g 2010-04-01 21:17:46
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g 2010-04-19 12:01:44
 
 package query;
 
@@ -10,8 +10,7 @@ import indexing.TermPosting;
 
 
 import org.antlr.runtime.*;
-import org.antlr.runtime.tree.*;
-import java.util.Stack;
+import org.antlr.runtime.tree.*;import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -43,15 +42,15 @@ public class QueryExecuter extends TreeParser {
         
 
     public String[] getTokenNames() { return QueryExecuter.tokenNames; }
-    public String getGrammarFileName() { return "C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g"; }
+    public String getGrammarFileName() { return "D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g"; }
 
 
-    public static DocumentIndex index;
+    public static DocumentIndex index = DocumentIndex.instance();
 
 
 
     // $ANTLR start "query"
-    // C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g:22:1: query returns [List<Integer> result] : (a= boolean_expr | );
+    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g:22:1: query returns [List<Integer> result] : (a= boolean_expr | );
     public final List<Integer> query() throws RecognitionException {
         List<Integer> result = null;
 
@@ -59,7 +58,7 @@ public class QueryExecuter extends TreeParser {
 
 
         try {
-            // C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g:23:6: (a= boolean_expr | )
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g:23:6: (a= boolean_expr | )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -77,7 +76,7 @@ public class QueryExecuter extends TreeParser {
             }
             switch (alt1) {
                 case 1 :
-                    // C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g:23:9: a= boolean_expr
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g:23:9: a= boolean_expr
                     {
                     pushFollow(FOLLOW_boolean_expr_in_query50);
                     a=boolean_expr();
@@ -89,7 +88,7 @@ public class QueryExecuter extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g:24:11: 
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g:24:11: 
                     {
                      result = Collections.emptyList();
 
@@ -110,19 +109,18 @@ public class QueryExecuter extends TreeParser {
 
 
     // $ANTLR start "boolean_expr"
-    // C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g:27:1: boolean_expr returns [List<Integer> result] : ( ^( AND a= boolean_expr b= boolean_expr ) | ^( OR a= boolean_expr b= boolean_expr ) | ^( NOT a= boolean_expr ) | WORD );
+    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g:27:1: boolean_expr returns [List<Integer> result] : ( ^( AND a= boolean_expr b= boolean_expr ) | ^( OR a= boolean_expr b= boolean_expr ) | ^( NOT a= boolean_expr ) | WORD );
     public final List<Integer> boolean_expr() throws RecognitionException {
         List<Integer> result = null;
 
         CommonTree WORD1=null;
         List<Integer> a = null;
 
-
         List<Integer> b = null;
 
 
         try {
-            // C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g:28:9: ( ^( AND a= boolean_expr b= boolean_expr ) | ^( OR a= boolean_expr b= boolean_expr ) | ^( NOT a= boolean_expr ) | WORD )
+            // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g:28:9: ( ^( AND a= boolean_expr b= boolean_expr ) | ^( OR a= boolean_expr b= boolean_expr ) | ^( NOT a= boolean_expr ) | WORD )
             int alt2=4;
             switch ( input.LA(1) ) {
             case AND:
@@ -154,12 +152,11 @@ public class QueryExecuter extends TreeParser {
 
             switch (alt2) {
                 case 1 :
-                    // C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g:28:11: ^( AND a= boolean_expr b= boolean_expr )
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g:28:11: ^( AND a= boolean_expr b= boolean_expr )
                     {
                     match(input,AND,FOLLOW_AND_in_boolean_expr92); 
 
                     match(input, Token.DOWN, null); 
-
                     pushFollow(FOLLOW_boolean_expr_in_boolean_expr96);
                     a=boolean_expr();
 
@@ -170,7 +167,6 @@ public class QueryExecuter extends TreeParser {
 
                     state._fsp--;
 
-                    
 
                     match(input, Token.UP, null); 
                      result = TermPosting.andLists(a, b); 
@@ -178,7 +174,7 @@ public class QueryExecuter extends TreeParser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g:29:4: ^( OR a= boolean_expr b= boolean_expr )
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g:29:4: ^( OR a= boolean_expr b= boolean_expr )
                     {
                     match(input,OR,FOLLOW_OR_in_boolean_expr126); 
 
@@ -200,7 +196,7 @@ public class QueryExecuter extends TreeParser {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g:30:4: ^( NOT a= boolean_expr )
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g:30:4: ^( NOT a= boolean_expr )
                     {
                     match(input,NOT,FOLLOW_NOT_in_boolean_expr143); 
 
@@ -212,17 +208,15 @@ public class QueryExecuter extends TreeParser {
 
 
                     match(input, Token.UP, null); 
-// siamak (no changes applied) --------------------------------------------------------------------------------------
-                    result = TermPosting.notList(a);
-                    //result = TermPosting.notList(a, index);
-//--------------------------------------------------------------------------
+                     result = TermPosting.notList(a); 
+
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g:31:4: WORD
+                    // D:\\eclipse\\workspace\\InformationRetrieval\\src\\query\\QueryExecuter.g:31:4: WORD
                     {
                     WORD1=(CommonTree)match(input,WORD,FOLLOW_WORD_in_boolean_expr157); 
-                     result = DocumentIndex.instance().getTermPostingList((WORD1!=null?WORD1.getText():null)); 
+                     result = index.getTermPostingList((WORD1!=null?WORD1.getText():null)); 
 
                     }
                     break;

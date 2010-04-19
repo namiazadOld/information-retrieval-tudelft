@@ -10,13 +10,12 @@ import java.util.List;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.TokenStream;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 
 import ranking.CosineRanker;
 import soundex.Soundex;
-
-import antlr.TokenStream;
 
 public class Query {
 
@@ -123,8 +122,7 @@ public class Query {
 		tree.getText();
 
 		QueryExecuter walker = new QueryExecuter(nodes);
-		org.antlr.runtime.TokenStream ts = nodes.getTokenStream();
-		QueryExecuter.index = DocumentIndex.instance();
+		TokenStream ts = nodes.getTokenStream();
 
 		results = walker.query();
 		return results;
@@ -152,15 +150,10 @@ public class Query {
 			System.out.println("Done.");
 		}
 
-		String input = "committee agrikul";
-		Query q = new Query(input);
+		String input = "committee text";
 
-		// q.printAST();
-		// System.out.println(q.getQueryStr());
-
-		// siamak
-		// ---------------------------------------------------------------------------------
 		try {
+			Query q = new Query(input);
 			List<Integer> r = q.getResult();
 			System.out.println(r);
 		} catch (Exception ex) {

@@ -13,6 +13,22 @@ package query;
 package query;
 }
 
+@members {
+protected void mismatch(IntStream input, int ttype, BitSet follow) throws RecognitionException {
+   throw new MismatchedTokenException(ttype, input);
+}
+
+public void recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
+   throw e;
+}
+}
+
+@rulecatch {
+catch (RecognitionException e) {
+   throw e;
+}
+}
+
 query:  boolean_expr
      | 
      ;
@@ -28,6 +44,8 @@ atom:    WORD
 	| NOT^ atom 			//-> ^(NOT atom)			
 	| '(' boolean_expr ')' 		-> boolean_expr 
 	;
+	
+
 
 AND 	: 'and';
 OR 	: 'or';
