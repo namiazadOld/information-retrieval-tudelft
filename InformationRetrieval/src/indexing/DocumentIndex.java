@@ -150,6 +150,7 @@ public class DocumentIndex implements Serializable {
 // siamak ------------------------------------------------------------------------------------
                 
                 //soundex
+                //System.out.println("- " + term + " -");
                 Soundex.addSoundex(term, tp);
                 
                 //permuterm
