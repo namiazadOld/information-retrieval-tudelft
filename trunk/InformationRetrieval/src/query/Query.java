@@ -1,6 +1,7 @@
 package query;
 
 import indexing.DocumentIndex;
+import indexing.PermutermFacilities;
 import indexing.TokenAnalyzer;
 
 import java.io.File;
@@ -25,41 +26,6 @@ public class Query {
 	// public DocumentIndex index;
 	private List<Integer> results;
 
-	public static String translateToPostfixWildcard(String text) {
-		int pos = -1;
-		int count = 0;
-		for (int i = 0; i < text.length(); i++) {
-			if (text.charAt(i) == '*') {
-				pos = i;
-				count++;
-			}
-		}
-
-		if (count > 1) {
-			if (DEBUG) {
-				System.out
-						.println(String
-								.format(
-										"More than 1 wildcard char found in token '%s', removing all of them.",
-										text));
-			}
-			count = 0;
-			pos = -1;
-			text = text.replaceAll("[*]", "");
-		}
-
-		text += DocumentIndex.ENDING_CHAR;
-
-		if (count == 1) {
-			String X = text.substring(0, pos + 1);
-			String Y = text.substring(pos + 1, text.length());
-			text = Y + X;
-			assert (text.charAt(text.length() - 1) == '*');
-		}
-
-		return text;
-	}
-
 	public List<Integer> rankResult() {
 		try {
 			if (results == null)
@@ -77,10 +43,9 @@ public class Query {
 	public Query(String query) throws RecognitionException {
 		// this.index = index;
 		query = query.trim().toLowerCase();
-		query = query.replaceAll("[^a-zA-Z0-9() .\t]", "");
+		query = query.replaceAll("[^a-zA-Z0-9() .\t" + PermutermFacilities.PERMUTERM_SYMBOL + PermutermFacilities.WILDCARD_SYMBOL + "]", "");
 
-		QueryGrammarLexer lexer = new QueryGrammarLexer(new ANTLRStringStream(
-				query));
+		QueryGrammarLexer lexer = new QueryGrammarLexer(new ANTLRStringStream(query));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		QueryGrammarParser parser = new QueryGrammarParser(tokens);
 		QueryGrammarParser.query_return r = parser.query();
@@ -96,11 +61,7 @@ public class Query {
 	// QueryGrammarParser.query_return r = parser.query();
 	// tree = (CommonTree)r.getTree();
 	// }
-	public String getQueryStr() throws RecognitionException {
-		CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
-		QueryTransformer walker = new QueryTransformer(nodes);
-		return walker.query();
-	}
+
 
 	public static List<String> takeOutQueryTerms(String inputQuery) {
 
@@ -119,7 +80,7 @@ public class Query {
 	// returns document ids
 	public List<Integer> getResult() throws RecognitionException {
 		CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
-		tree.getText();
+//		tree.getText();
 
 		QueryExecuter walker = new QueryExecuter(nodes);
 		TokenStream ts = nodes.getTokenStream();
@@ -150,7 +111,7 @@ public class Query {
 			System.out.println("Done.");
 		}
 
-		String input = "committee text";
+		String input = "not agriculture";
 
 		try {
 			Query q = new Query(input);
