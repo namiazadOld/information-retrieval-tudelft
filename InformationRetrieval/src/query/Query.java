@@ -7,6 +7,7 @@ import indexing.TokenAnalyzer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -19,6 +20,10 @@ import ranking.CosineRanker;
 import soundex.Soundex;
 
 public class Query {
+	public static int K_TOP = 10;
+	public static int MODE_BOOLEAN  = 0;
+	public static int MODE_BAG_OF_WORDS = 1;
+	
 
 	private CommonTree tree;
 	public static final boolean DEBUG = true;
@@ -111,23 +116,44 @@ public class Query {
 			System.out.println("Done.");
 		}
 
-		String input = "not agriculture";
+		int mode = MODE_BAG_OF_WORDS; 
+		
+		while (true) {
+			System.out.printf("Mode: %s\n", mode == MODE_BOOLEAN ? "Boolean querying" : "Bag of words");
+			if (mode == MODE_BAG_OF_WORDS) {
+				System.out.printf("K: %d\n",K_TOP);
+			}
+			System.out.printf("Enter the query (mode): ");
+			Scanner in = new Scanner(System.in);
 
-		try {
-			Query q = new Query(input);
-			List<Integer> r = q.getResult();
-			System.out.println(r);
-		} catch (Exception ex) {
-			int k_top = 5;
+		       // Reads a single line from the console 
+		       // and stores into name variable
+		    String input = in.nextLine();
+		    input = input.toLowerCase().trim();
+		    if (input.equals("mode")) {
+		    	mode = 1 - mode;
+		    	continue;
+		    }
+			String soundex = Soundex.guessSoundex(input);
+			if (soundex != null)
+				System.out.println("Did you mean: " + soundex);
+			if (mode == MODE_BOOLEAN) {
+				try {
+					Query q = new Query(input);
+					List<Integer> r = q.getResult();
+					System.out.println(r);
+				} catch (Exception ex) {
+					System.out.println("Error while processing the boolean query.");
+				}
+			} else {
+				System.out.println("High-idf turned off:");
+				System.out.println(CosineRanker.rankingResults(input, K_TOP, false));
+				System.out.println("High-idf turned on:");
+				System.out.println(CosineRanker.rankingResults(input, K_TOP, true));
 
-			System.out.println(CosineRanker.rankingResults(input, k_top, false));
-			System.out.println(CosineRanker.rankingResults(input, k_top, true));
-
+			}
 		}
 
-		String soundex = Soundex.guessSoundex(input);
-		if (soundex != null)
-			System.out.println("Did you mean: " + soundex);
 
 		// System.out.println(q.rankResult());
 		// ---------------------------------------------------------------------------------

@@ -8,23 +8,23 @@ public final class PermutermFacilities {
 	public static final char PERMUTERM_SYMBOL = '$';
 	public static final char WILDCARD_SYMBOL = '*';
 
-	public static List<String> producePermutermList(String token) {
-		if (token == null) {
-			return null;
-		}
-
-		token += PERMUTERM_SYMBOL;
-
-		List<String> result = new ArrayList<String>();
-		result.add(token);
-		for (int i = 1; i < token.length(); i++) {
-			token = token.substring(1, token.length()) + token.charAt(0);
-			result.add(token);
-		}
-
-		return result;
-
-	}
+//	public static List<String> producePermutermList(String token) {
+//		if (token == null) {
+//			return null;
+//		}
+//
+//		token += PERMUTERM_SYMBOL;
+//
+//		List<String> result = new ArrayList<String>();
+//		result.add(token);
+//		for (int i = 1; i < token.length(); i++) {
+//			token = token.substring(1, token.length()) + token.charAt(0);
+//			result.add(token);
+//		}
+//
+//		return result;
+//
+//	}
 
 	public static String translateToPostfixWildcard(String text) {
 		int pos = -1;
@@ -86,15 +86,15 @@ public final class PermutermFacilities {
 //		System.out.println(shiftWildCardToEnd("*las*edfgo"));
 //	}
 //	
-//	public static List<String> producePermutermList(String term) {
-//
-//			List<String> result = new ArrayList<String>();
-//			term = PERMUTERM_SYMBOL + term;
-//			result.add(term);
-//			while (!term.endsWith(String.valueOf(PERMUTERM_SYMBOL))) {
-//				result.add(term = term.substring(term.length() - 1)
-//						+ term.substring(0, term.length() - 1));
-//			}
-//			return result;
-//		}
+	public static List<String> producePermutermList(String term) {
+
+			List<String> result = new ArrayList<String>();
+			term = PERMUTERM_SYMBOL + term;
+			result.add(term);
+			while (!term.endsWith(String.valueOf(PERMUTERM_SYMBOL))) {
+				result.add(term = term.substring(term.length() - 1)
+						+ term.substring(0, term.length() - 1));
+			}
+			return result;
+		}
 }
