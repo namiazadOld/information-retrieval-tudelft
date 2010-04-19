@@ -26,7 +26,7 @@ public class TokenAnalyzer {
         "they", "this", "to", "was", "will"
     };
     private static HashSet stopTable;
-    public static final String DOCUMENT_DELIMITER = "[ |\\\"\\-_,\r\n\t?!;:<>{}\\[\\]=+/%*&()'" + PermutermFacilities.PERMUTERM_SYMBOL + "]+";
+    public static final String DOCUMENT_DELIMITER = "[ |\\\"\\-_,\r\n\t?!;:<>{}\\[\\]=+/%&()'" + PermutermFacilities.PERMUTERM_SYMBOL + "]+";
     
     static {
         stopTable = new HashSet();
