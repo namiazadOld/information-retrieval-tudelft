@@ -82,9 +82,10 @@ public class DocumentIndex implements Serializable {
     		term = PermutermFacilities.removePostfixWildcard(term);
     		Map.Entry<String, TermPosting> entry = termPostings.ceilingEntry(term);
     		if (entry == null) return Collections.emptyList();
-    		
-    		result.addAll(entry.getValue().postingList.keySet());
+
     		String regex = term.replace("$", "\\$") + ".*";
+    		if (Pattern.matches(regex, entry.getKey()))
+    			result.addAll(entry.getValue().postingList.keySet());
     		
     		while ((entry = termPostings.higherEntry(entry.getKey())) != null && Pattern.matches(regex, entry.getKey()) ) {
     			List<Integer> result2 = new ArrayList(entry.getValue().postingList.keySet());
