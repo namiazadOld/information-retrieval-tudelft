@@ -134,14 +134,14 @@ public class Query {
            if (mode == MODE_BAG_OF_WORDS) {
                System.out.printf("K: %d\n",K_TOP);
            }
-           System.out.printf("Enter the query (mode): ");
+           System.out.printf("Enter the query (type \"@m\" to switch mode): ");
            Scanner in = new Scanner(System.in);
 
               // Reads a single line from the console
               // and stores into name variable
            String input = in.nextLine();
            input = input.toLowerCase().trim();
-           if (input.equals("mode")) {
+           if (input.equalsIgnoreCase("@m")) {
                mode = 1 - mode;
                continue;
            }
