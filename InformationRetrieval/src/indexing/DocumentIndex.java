@@ -84,14 +84,15 @@ public class DocumentIndex implements Serializable {
 
         return result;
     }
-    
+ 
+// siamak ----------------------------------------------------------------------    
     public TermPosting getTermPosting (String term){
 
     	if (term == null) return null;
         TermPosting tp = termPostings.get(term);
         return tp;
     }
-
+// --------------------------------------------------------------------------
 
     public void add(File txtFile, int docid) {
 // siamak --------------------------------------------------------------------------
@@ -139,6 +140,11 @@ public class DocumentIndex implements Serializable {
                 tp.termFrequencySum += termFrequency;
                 tp.documentFrequency++;
                 termPostings.put(term, tp);
+// siamak ------------------------------------------------------------------------------------
+                for(String permuterm : PermutermFacilities.producePermutermList(term)){
+                	termPostings.put(permuterm, tp);
+                }
+// --------------------------------------------------------------------
             }
 
         } catch (FileNotFoundException e) {

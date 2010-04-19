@@ -103,7 +103,6 @@ public class Query {
         tree.getText();
         
         QueryExecuter walker = new QueryExecuter(nodes);
-        String[] KIR = walker.getTokenNames();
         org.antlr.runtime.TokenStream ts = nodes.getTokenStream();
 //        QueryExecuter.index = index;
        
@@ -133,7 +132,7 @@ public class Query {
             System.out.println("Done.");
         }
 
-        String input = "who";
+        String input = "not agriculture";
         Query q = new Query(input);
 
         
@@ -144,9 +143,11 @@ public class Query {
         List<Integer> r = q.getResult();
         System.out.println(r);
         int k_top = 5;
-        System.out.println(CosineRanker.rankingResults(input, k_top, false));
-        System.out.println(CosineRanker.rankingResults(input, k_top, true));
-
+        if(r.size() != 0){
+        	System.out.println(CosineRanker.rankingResults(input, k_top, false));
+            System.out.println(CosineRanker.rankingResults(input, k_top, true));
+        }
+        
         //System.out.println(q.rankResult());
 // ---------------------------------------------------------------------------------
     }

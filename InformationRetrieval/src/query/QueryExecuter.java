@@ -117,6 +117,7 @@ public class QueryExecuter extends TreeParser {
         CommonTree WORD1=null;
         List<Integer> a = null;
 
+
         List<Integer> b = null;
 
 
@@ -158,6 +159,7 @@ public class QueryExecuter extends TreeParser {
                     match(input,AND,FOLLOW_AND_in_boolean_expr92); 
 
                     match(input, Token.DOWN, null); 
+
                     pushFollow(FOLLOW_boolean_expr_in_boolean_expr96);
                     a=boolean_expr();
 
@@ -168,6 +170,7 @@ public class QueryExecuter extends TreeParser {
 
                     state._fsp--;
 
+                    
 
                     match(input, Token.UP, null); 
                      result = TermPosting.andLists(a, b); 
