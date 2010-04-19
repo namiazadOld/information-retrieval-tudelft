@@ -22,6 +22,8 @@ import java.util.TreeSet;
 
 import javax.management.RuntimeErrorException;
 
+import soundex.Soundex;
+
 import antlr.debug.NewLineEvent;
 
 /**
@@ -32,8 +34,14 @@ public class DocumentIndex implements Serializable {
 
     public static final char ENDING_CHAR = '$';
     private TreeMap<String, TermPosting> termPostings = new TreeMap<String, TermPosting>();
+    private TreeMap<String, List<TermPosting>> soundexIndex = new TreeMap<String, List<TermPosting>>();
     
 
+    public TreeMap<String, List<TermPosting>> getSoundIndex()
+    {
+    	return soundexIndex;
+    }
+    
     //private ArrayList<Document> documents = new ArrayList<Document>();
     
     private DocumentIndex()
@@ -135,15 +143,20 @@ public class DocumentIndex implements Serializable {
                     tp = new TermPosting(term);
                 }
                 
-
                 tp.postingList.put(docid, termFrequency);
                 tp.termFrequencySum += termFrequency;
                 tp.documentFrequency++;
                 termPostings.put(term, tp);
 // siamak ------------------------------------------------------------------------------------
+                
+                //soundex
+                Soundex.addSoundex(term, tp);
+                
+                //permuterm
                 for(String permuterm : PermutermFacilities.producePermutermList(term)){
                 	termPostings.put(permuterm, tp);
                 }
+                
 // --------------------------------------------------------------------
             }
 
@@ -152,6 +165,8 @@ public class DocumentIndex implements Serializable {
         }
 
     }
+
+	
     
 // siamak ------------------------------------------------------------------------
     public void updateWeights(){

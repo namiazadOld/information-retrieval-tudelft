@@ -46,7 +46,7 @@ public class QueryExecuter extends TreeParser {
     public String getGrammarFileName() { return "C:\\Users\\msenesi\\Documents\\NetBeansProjects\\InformationRetrieval\\src\\query\\QueryExecuter.g"; }
 
 
-  //  public static DocumentIndex index;
+    public static DocumentIndex index;
 
 
 

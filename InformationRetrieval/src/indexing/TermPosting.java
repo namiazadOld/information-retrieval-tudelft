@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 
+import soundex.Soundex;
+
 /**
  *
  * @author msenesi
@@ -38,6 +40,8 @@ public class TermPosting implements Comparable, Serializable {
 // siamak-----------------------------------------------------------------    
         this.postingListOfWeights = new TreeMap<Integer, Double>();
 // -----------------------------------------------------------------
+        
+        
     }
 
     /**
@@ -178,10 +182,6 @@ public class TermPosting implements Comparable, Serializable {
     }
 
     public static List<Integer> notList(List<Integer> l1) {
-    	
-    	if (l1 == STOP_WORD_LIST) {
-        	l1 = null;
-        }
 
         if (l1 == null || l1.size() <= 0) {        	
             

@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
+import query.Query;
+
 
 
 public class CosineRanker {
@@ -18,7 +20,7 @@ public class CosineRanker {
 	
 	public static List<Integer> rankingResults (String inputQuery, int k_top, boolean highIDF){
 		
-		List <String> queryParsed = takeOutQueryTerms(inputQuery);
+		List <String> queryParsed = Query.takeOutQueryTerms(inputQuery);
 		if (highIDF)
 			getHighIDFQueryTerms(queryParsed);
 		
@@ -71,22 +73,10 @@ public class CosineRanker {
 	
 	private static double speciality (String term){
 		
+		int df_t = DocumentIndex.instance().getTermPostingList(term).size();
+		int bigN =  DocumentIndex.instance().document_IDs_And_Lenghts.size();
+		return (df_t == 0) ? bigN : Math.log10(bigN/df_t);
 		//System.out.println("IDF " + term + ":" + Math.log10(DocumentIndex.instance().document_IDs_And_Lenghts.size()/DocumentIndex.instance().getTermPostingList(term).size()));
-		return Math.log10(DocumentIndex.instance().document_IDs_And_Lenghts.size()/DocumentIndex.instance().getTermPostingList(term).size());
-	}
-	
-	private static List<String> takeOutQueryTerms (String inputQuery){
-		
-		ArrayList<String> out = new ArrayList<String>();
-
-		TokenAnalyzer ta = new TokenAnalyzer(inputQuery);
-        String term = null;
-		
-		while ((term = ta.getNextToken()) != null) {
-            if (!out.contains(term))
-            	out.add(term);
-        }
-		return out;
 	}
 	
 	private static void getHighIDFQueryTerms (List<String> queryTerms){
