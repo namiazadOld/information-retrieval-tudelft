@@ -8,18 +8,6 @@ public final class PermutermFacilities {
 	public static final char PERMUTERM_SYMBOL = '$';
 	public static final char WILDCARD_SYMBOL = '*';
 
-//	public static List<String> producePermutermList(String term) {
-//
-//		List<String> result = new ArrayList<String>();
-//		term = PERMUTERM_SYMBOL + term;
-//		result.add(term);
-//		while (!term.endsWith(String.valueOf(PERMUTERM_SYMBOL))) {
-//			result.add(term = term.substring(term.length() - 1)
-//					+ term.substring(0, term.length() - 1));
-//		}
-//		return result;
-//	}
-
 	public static List<String> producePermutermList(String token) {
 		if (token == null) {
 			return null;
@@ -97,4 +85,16 @@ public final class PermutermFacilities {
 //		System.out.println(producePermutermList(str));
 //		System.out.println(shiftWildCardToEnd("*las*edfgo"));
 //	}
+//	
+//	public static List<String> producePermutermList(String term) {
+//
+//			List<String> result = new ArrayList<String>();
+//			term = PERMUTERM_SYMBOL + term;
+//			result.add(term);
+//			while (!term.endsWith(String.valueOf(PERMUTERM_SYMBOL))) {
+//				result.add(term = term.substring(term.length() - 1)
+//						+ term.substring(0, term.length() - 1));
+//			}
+//			return result;
+//		}
 }
