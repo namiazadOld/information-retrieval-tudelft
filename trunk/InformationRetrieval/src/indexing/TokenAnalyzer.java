@@ -68,7 +68,7 @@ public class TokenAnalyzer {
             }
         }
 
-        if(stopTable.contains(term) || term == null)
+        if(stopTable.contains(term) || term == null || term.matches("[ ]*"))
         	return null;
         
 // siamak ------------------------------------------------------        

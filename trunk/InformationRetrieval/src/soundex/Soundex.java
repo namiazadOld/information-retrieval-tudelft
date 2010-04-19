@@ -19,8 +19,10 @@ public class Soundex {
     
     
     public static String soundex(String s) { 
-        char[] x = s.toUpperCase().toCharArray();
         
+    	//System.out.println(s);
+    	char[] x = s.toUpperCase().toCharArray();
+        //System.out.println(x);
         char firstLetter = x[0];
 
         // convert letters to numeric code
@@ -70,6 +72,7 @@ public class Soundex {
     	if (term == null || term.trim() == "")
     		return;
 		
+    	//System.out.println("- " + term + " -");
     	String soundex = Soundex.soundex(term);
 		
 		if (DocumentIndex.instance().getSoundIndex().get(soundex) == null)
@@ -123,9 +126,9 @@ public class Soundex {
     	return suggestion;
     }
 
-    public static void main(String[] args)
-    {
-    	System.out.println(soundex("Agriculture"));
-    	System.out.println(soundex("Agricult"));
-    }
+//    public static void main(String[] args)
+//    {
+//    	System.out.println(soundex("Agriculture"));
+//    	System.out.println(soundex("Agricult"));
+//    }
 }
