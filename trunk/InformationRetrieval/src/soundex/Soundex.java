@@ -1,59 +1,131 @@
 package soundex;
+
 import indexing.DocumentIndex;
-import indexing.TokenAnalyzer;
+import indexing.TermPosting;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 
-public class Soundex { 
-public static final char[] mapping ={
-    //A  B   C   D   E   F   G   H   I   J   K   L   M
-    '0','1','2','3','0','1','2','0','0','2','2','4','5',
-    //N  O   P   W   R   S   T   U   V   W   X   Y   Z
-    '5','0','1','2','6','2','3','0','1','0','2','0','2'
-    };
-    // Convert method replace strings with its soundex code
-    public static String soundex(String s){
-    //Change to upper case
-    String u = s.toUpperCase();
+import org.antlr.gunit.swingui.parsers.StGUnitParser.output_return;
+
+import query.Query;
+
+public class Soundex {
+    private HashMap<String, ArrayList<TermPosting>> soundex;
+
+    public Soundex() {
+        soundex = new HashMap<String, ArrayList<TermPosting>>();
+    }
     
-    StringBuffer res = new StringBuffer();
-    char c, prev ='?';
-    for (int i=0 ; i< u.length() && res.length()<4 && ( c = u.charAt(i))!=',';i++ ){
-    if(c>'A' && c< 'Z' && c != prev)
+    
+    public static String soundex(String s) { 
+        char[] x = s.toUpperCase().toCharArray();
+        
+        char firstLetter = x[0];
+
+        // convert letters to numeric code
+        for (int i = 0; i < x.length; i++) {
+            switch (x[i]) {
+                case 'B':
+                case 'F':
+                case 'P':
+                case 'V': { x[i] = '1'; break; }
+
+                case 'C':
+                case 'G':
+                case 'J':
+                case 'K':
+                case 'Q':
+                case 'S':
+                case 'X':
+                case 'Z': { x[i] = '2'; break; }
+
+                case 'D':
+                case 'T': { x[i] = '3'; break; }
+
+                case 'L': { x[i] = '4'; break; }
+
+                case 'M':
+                case 'N': { x[i] = '5'; break; }
+
+                case 'R': { x[i] = '6'; break; }
+
+                default:  { x[i] = '0'; break; }
+            }
+        }
+
+        // remove duplicates
+        String output = "" + firstLetter;
+        for (int i = 1; i < x.length; i++)
+            if (x[i] != x[i-1] && x[i] != '0')
+                output += x[i];
+
+        // pad with 0's or truncate
+        output = output + "0000";
+        return output.substring(0, 4);
+    }
+    
+    public static void addSoundex(String term, TermPosting tp) {
+    	
+    	if (term == null || term.trim() == "")
+    		return;
+		
+    	String soundex = Soundex.soundex(term);
+		
+		if (DocumentIndex.instance().getSoundIndex().get(soundex) == null)
+		{
+			List<TermPosting> tpList = new ArrayList<TermPosting>();
+			tpList.add(tp);
+			DocumentIndex.instance().getSoundIndex().put(soundex, tpList);
+		}
+		else
+			DocumentIndex.instance().getSoundIndex().get(soundex).add(tp);
+	}
+    
+    private static String findMostCommonSimilarTerm(String term)
     {
-    prev =c;
-    // add first character to buffer
-    if(i==0)
-    	res.append(c);
-    else
+    	List<TermPosting> similarWords = DocumentIndex.instance().getSoundIndex().get(soundex(term));
+    	
+    	if (similarWords == null || similarWords.size() == 0)
+    		return term;
+    	
+    	TermPosting max = similarWords.get(0);
+    	
+    	for (TermPosting tp : similarWords)
+    		if (tp.termFrequencySum > max.termFrequencySum)
+    			max = tp;
+    	
+    	return max.term;
+    }
+    
+    public static String guessSoundex(String inputQuery)
     {
-    	 char m = mapping[c -'A'];
-    	 if (m!='0')
-         res.append(m);
-    }
-    }
-    }
-    if (res.length()== 0) 
-    	return null;
-    for (int i= res.length(); i<4 ; i++)
-    	res.append(0);
-    	return res.toString();
-      
+    	List<String> queryTerms = Query.takeOutQueryTerms(inputQuery);
+    	
+    	String suggestion = "";
+    	String soundexTerm = "";
+    	boolean isTheSame = true;
+    	
+    	for (String term: queryTerms)
+    		{
+    			soundexTerm = findMostCommonSimilarTerm(term);
+    			
+    			if (!soundexTerm.equals(term))
+    				isTheSame = false;
+    			
+    			suggestion += soundexTerm + " ";
+    		}
+    	
+    	
+    	if (isTheSame)
+    		return null;
+    	
+    	return suggestion;
     }
 
-  /*  public static void main(String[] args)
+    public static void main(String[] args)
     {
-    String[] name ={
-      "Darwin, Ian",
-      "Davidson, Greg",
-      "Darwent, William",
-      "Derwin, Daemon"
-      };
-      for (int i=0 ; i< name.length; i++)
-      {
-      System.out.println(Soundex.soundex (name[i])+ ' '+ name[i]);
-      }
-     }*/
+    	System.out.println(soundex("Agriculture"));
+    	System.out.println(soundex("Agricult"));
+    }
 }
