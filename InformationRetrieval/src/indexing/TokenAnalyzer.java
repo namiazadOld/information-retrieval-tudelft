@@ -23,7 +23,7 @@ public class TokenAnalyzer {
         "for", "if", "in", "into", "is", "it",
         "no", "not", "of", "on", "or", "s", "such",
         "t", "that", "the", "their", "then", "there", "these",
-        "they", "this", "to", "was", "will"
+        "they", "this", "to", "was", "will", "with"
     };
     private static HashSet stopTable;
     public static final String DOCUMENT_DELIMITER = "[ |\\\"\\-_,\r\n\t?!;:<>{}\\[\\]=+/%&()'" + PermutermFacilities.PERMUTERM_SYMBOL + "]+";
