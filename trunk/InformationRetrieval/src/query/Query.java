@@ -20,7 +20,7 @@ import ranking.CosineRanker;
 import soundex.Soundex;
 
 public class Query {
-   public static int K_TOP = 10;
+   public static int K_TOP = 20;
    public static int MODE_BOOLEAN  = 0;
    public static int MODE_BAG_OF_WORDS = 1;
 
