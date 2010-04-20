@@ -42,8 +42,8 @@ package query;
   
 
 
-query:  boolean_expr
-     | 
+query:  boolean_expr EOF
+     | EOF
      ;
 
 boolean_expr:	or_expr (AND^ or_expr)* //	-> ^(AND or_expr+)
