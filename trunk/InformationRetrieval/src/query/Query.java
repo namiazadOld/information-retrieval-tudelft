@@ -117,12 +117,12 @@ public class Query {
        // DocumentIndex index = null;
 
        if (!db.exists()) {
-           System.out.print("Creating index...");
+           System.out.println("Creating index...");
            DocumentIndex.instance().createIndex("reutersTXT/");
            DocumentIndex.instance().save("reuters.db");
            System.out.println("Done.");
        } else {
-           System.out.print("Loading index...");
+           System.out.println("Loading index...");
            DocumentIndex.instance().load("reuters.db");
            System.out.println("Done.");
        }
