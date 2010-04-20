@@ -127,37 +127,27 @@ public class Query {
            System.out.println("Done.");
        }
 
-       int mode = MODE_BAG_OF_WORDS;
+//       int mode = MODE_BAG_OF_WORDS;
 
        while (true) {
-           System.out.printf("Mode: %s\n", mode == MODE_BOOLEAN ? "Boolean querying" : "Bag of words");
-           if (mode == MODE_BAG_OF_WORDS) {
-               System.out.printf("K: %d\n",K_TOP);
-           }
-           System.out.printf("Enter the query (type \"@m\" to switch mode): ");
            Scanner in = new Scanner(System.in);
 
               // Reads a single line from the console
               // and stores into name variable
+           
+           System.out.print("Query > ");
            String input = in.nextLine();
            input = input.toLowerCase().trim();
-           if (input.equalsIgnoreCase("@m")) {
-               mode = 1 - mode;
-               continue;
-           }
+
            String soundex = Soundex.guessSoundex(input);
            if (soundex != null)
                System.out.println("Did you mean: " + soundex);
-           if (mode == MODE_BOOLEAN) {
-               try {
-                   Query q = new Query(input);
-                   List<Integer> r = q.getResult();
-                   System.out.println(r);
-               } catch (Exception ex) {
-                   System.out.println("Error while processing the boolean query.");
-               }
-           } else {
-        	   
+           try { 								// Try boolean
+               Query q = new Query(input);
+               List<Integer> r = q.getResult();
+               System.out.println(r);
+           } catch (Exception ex) { 			// Bag of words
+
         	   if(input.contains("*")){
         		   String s = join(takeOutQueryTerms(input), "or");
                    System.out.println("Entered query is replaced by this boolean query: " + s);
@@ -166,18 +156,14 @@ public class Query {
                    System.out.println(r2);
         	   }
         	   else{
+                   System.out.printf("K: %d\n",K_TOP);
         		   List <String> queryParsed = takeOutQueryTerms(input);
                    System.out.println("High-idf turned off:");
                    System.out.println(CosineRanker.rankingResults(queryParsed, K_TOP, false));
                    System.out.println("High-idf turned on:");
                    System.out.println(CosineRanker.rankingResults(queryParsed, K_TOP, true));
         	   }
-        	   
            }
        }
-
-
-       // System.out.println(q.rankResult());
-       // ---------------------------------------------------------------------------------
    }
 }
