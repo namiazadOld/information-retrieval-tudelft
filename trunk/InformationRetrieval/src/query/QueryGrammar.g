@@ -13,21 +13,34 @@ package query;
 package query;
 }
 
-@members {
-protected void mismatch(IntStream input, int ttype, BitSet follow) throws RecognitionException {
-   throw new MismatchedTokenException(ttype, input);
-}
+@parser::members {
 
-public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
-   throw e;
-}
+  @Override
+  protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
+    throw new MismatchedTokenException(ttype, input);
+  }
+
+  @Override
+  public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
+    throw e;
+  }
+
 }
 
 @rulecatch {
-catch (RecognitionException e) {
-   throw e;
+    catch (RecognitionException e) {
+        throw e;
+    }
 }
+
+@lexer::members {
+  @Override
+  public void reportError(RecognitionException e) {
+    throw new IllegalArgumentException(e);
+  }
 }
+  
+
 
 query:  boolean_expr
      | 
