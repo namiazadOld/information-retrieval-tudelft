@@ -57,7 +57,7 @@ public class DocumentIndex implements Serializable {
 
 // siamak --------------------------------------------------------------------------
     //public static TreeSet<Integer> documentIds = new TreeSet<Integer>();
-    public TreeMap<Integer, Integer> document_IDs_And_Lenghts = new TreeMap<Integer, Integer>();
+    public TreeMap<Integer, Double> document_IDs_And_Lenghts = new TreeMap<Integer, Double>();
 // --------------------------------------------------------------------------
 
     
@@ -130,12 +130,6 @@ public class DocumentIndex implements Serializable {
                 numberOfTokens ++;
             }
 
-// siamak --------------------------------------------------------------------------
-            //documentIds.add(docid);
-            document_IDs_And_Lenghts.put(docid, numberOfTokens);
-//--------------------------------------------------------------------------
-
-
             // Store information in index
             Iterator it = terms.keySet().iterator();
             //Document doc = new Document(docid);
@@ -175,25 +169,35 @@ public class DocumentIndex implements Serializable {
 	
     
 // siamak ------------------------------------------------------------------------
-    public void updateWeights(){
+    public void calculateWeightsAndLenghts(){
     	
     	if(this.termPostings.isEmpty()){
     		throw new RuntimeException("Term postiong Empty");
     	}
-		System.out.println("updating weights ...");
+		System.out.println("Calculating weights ...");
+    	double weight;
     	double d;
+    	
     	for (TermPosting tp: termPostings.values()){
     		
     		for (Integer i: tp.postingList.keySet()){
        			//tf-idf weights
-        		tp.postingListOfWeights.put(i, ( ( (d = tp.postingList.get(i)) > 0 )?(1 + Math.log10(d)):(0.0) )
-        				* Math.log10(tp.termFrequencySum/tp.postingList.size()) );
-    			
+    			weight = ( ( (d = tp.postingList.get(i)) > 0 )?(1 + Math.log10(d)):(0.0) ) 
+    				* Math.log10(tp.termFrequencySum/tp.postingList.size());
+        		tp.postingListOfWeights.put(i, weight);
+        		document_IDs_And_Lenghts.put(i, (
+        				document_IDs_And_Lenghts.containsKey(i) 
+        				? document_IDs_And_Lenghts.get(i) + Math.pow(weight, 2)
+        				: Math.pow(weight, 2) ));
     		}
     	}
+    	
+    	System.out.println("Calculating document lenghts ...");
+    	for(Integer i: document_IDs_And_Lenghts.keySet())
+    		document_IDs_And_Lenghts.put(i, Math.sqrt(document_IDs_And_Lenghts.get(i)));
     		
     } 
-//--------------------------------------------------
+    //--------------------------------------------------
     
 
 
@@ -212,7 +216,7 @@ public class DocumentIndex implements Serializable {
             }
         }
 // siamak --------------------------------------------------------------------------
-        documentIndex.updateWeights();
+        documentIndex.calculateWeightsAndLenghts();
 //--------------------------------------------------------------------------            
 
 //        documentIndex = index;
