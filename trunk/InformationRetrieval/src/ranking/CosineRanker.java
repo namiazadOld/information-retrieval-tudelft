@@ -75,7 +75,7 @@ public class CosineRanker {
 		
 		int df_t = DocumentIndex.instance().getTermPostingList(term).size();
 		int bigN =  DocumentIndex.instance().document_IDs_And_Lenghts.size();
-		return (df_t == 0) ? bigN : Math.log10(bigN/df_t);
+		return (df_t == 0) ? bigN : Math.log10((double)bigN/(double)df_t);
 		//System.out.println("IDF " + term + ":" + Math.log10(DocumentIndex.instance().document_IDs_And_Lenghts.size()/DocumentIndex.instance().getTermPostingList(term).size()));
 	}
 	
