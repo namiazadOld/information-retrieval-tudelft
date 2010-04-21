@@ -183,8 +183,12 @@ public class DocumentIndex implements Serializable {
     		for (Integer i: tp.postingList.keySet()){
        			//tf-idf weights
     			weight = ( ( (d = tp.postingList.get(i)) > 0 )?(1 + Math.log10(d)):(0.0) ) 
-    				* Math.log10(tp.termFrequencySum/tp.postingList.size());
+    				* Math.log10((double)this.termPostings.size()/(double)tp.postingList.size());
         		tp.postingListOfWeights.put(i, weight);
+        		
+//        		if (i == 1666){
+//        			System.out.println(" --- " + tp.term + " : " + weight + " : " + tp.postingList.get(i) );
+//        		}
         		document_IDs_And_Lenghts.put(i, (
         				document_IDs_And_Lenghts.containsKey(i) 
         				? document_IDs_And_Lenghts.get(i) + Math.pow(weight, 2)
