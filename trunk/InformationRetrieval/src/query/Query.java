@@ -20,7 +20,7 @@ import ranking.CosineRanker;
 import soundex.Soundex;
 
 public class Query {
-   public static int K_TOP = 20;
+   public static int K_TOP = 400;
    public static int MODE_BOOLEAN  = 0;
    public static int MODE_BAG_OF_WORDS = 1;
 
@@ -128,7 +128,10 @@ public class Query {
        }
 
 //       int mode = MODE_BAG_OF_WORDS;
-
+       
+//       for(Integer i : DocumentIndex.instance().document_IDs_And_Lenghts.keySet())
+//    	   System.out.println(i + " : " + DocumentIndex.instance().document_IDs_And_Lenghts.get(i));
+//       System.out.println(DocumentIndex.instance().getTermPostingList("electricite"));
        while (true) {
            Scanner in = new Scanner(System.in);
 
